@@ -5,99 +5,305 @@ using UnityEngine.Networking;
 
 public class PhpRead : MonoBehaviour
 {
+
+    #region Fields Declarations
+
     public Transform p1Units;
     public Transform p2Units;
 
     public Transform p1Swordsman;
     public Transform p2Swordsman;
 
+    public Transform p1Miner;
+    public Transform p2Miner;
+
     private Transform createdUnit;
 
-    private WaitForSeconds waitTime;
+    private WaitForSecondsRealtime waitTime;
     private WaitForFixedUpdate waitForFixedUpdate;
 
     private string downloadedStrings = "";
-    //private List<string> actions;
     private string strings;
+    private string player;
+    private string id = "";
+    private string posx;
+    private string posy;
+    private string actionStep = "0";
+    private string actionPlayer = "";
+    private string step = "0";
+    private string p1LastUnixTime;
+    private string p2LastUnixTime;
+    private string p1Step;
+    private string p2Step;
+
+    float timeRemaining;
+
+    private string _uri;
+
+    #endregion
+
+    private void Awake()
+    {
+        _uri = GENERAL.SERVER + "Read.php";
+    }
 
     private void Start()
     {
-        waitTime = new WaitForSeconds(0.5f);
+        waitTime = new WaitForSecondsRealtime(1);
         waitForFixedUpdate = new WaitForFixedUpdate();
 
-        //actions = new List<string>();
+        PlayerPrefs.SetInt("id", 0);
 
-        if (!PlayerPrefs.HasKey("id"))
-        {
-            PlayerPrefs.SetInt("id", 0);
-        }
         StartCoroutine(ReadPhp());
-    }
-
-    private void Update()
-    {
-        Debug.Log(PlayerPrefs.GetInt("id"));
     }
 
     private IEnumerator ReadPhp()
     {
         while (true)
         {
-            WWWForm form = new WWWForm();
-            form.AddField("id", PlayerPrefs.GetInt("id"));
-
-            using (UnityWebRequest webRequest = UnityWebRequest.Post("http://192.168.1.130/UNITY_PROJECTS/ClashRoyaleTry/Read.php", form))
+            if (GameMenu.GAME_STARTED)
             {
-                yield return webRequest.SendWebRequest();
+                WWWForm form = new WWWForm();
+                form.AddField("id", PlayerPrefs.GetInt("id"));
+                form.AddField("room", GENERAL.ROOM);
+                if (GENERAL.TESTING_MODE) { form.AddField("room", "test_room"); }
 
-                if (webRequest.isNetworkError)
+
+                using (UnityWebRequest webRequest = UnityWebRequest.Post( _uri , form))
                 {
-                    Debug.Log("Network Error");
-                }
-                else
-                {
-                    string downloadedText = webRequest.downloadHandler.text;
+                    yield return webRequest.SendWebRequest();
 
-                    Debug.Log(downloadedText);
-
-                    if (downloadedText != "")
+                    if (webRequest.isNetworkError)
                     {
-                        for (int i = 0; i < downloadedText.Length; i++)
+                        Debug.Log("Network Error");
+                    }
+                    else
+                    {
+                        string downloadedText = webRequest.downloadHandler.text;
+
+                        //Debug.Log(downloadedText);
+
+                        if (downloadedText != "")
                         {
-                            switch (downloadedStrings)
+                            downloadedStrings = "";
+                            player = "";
+                            step = "";
+                            id = "";
+                            posx = "";
+                            posy = "";
+                            strings = "";
+                            actionPlayer = "";
+                            actionStep = "";
+
+                            for (int i = 0; i < downloadedText.Length; i++)
                             {
-                                case "id":
-                                    if (downloadedText[i] != ';')
-                                    {
-                                        strings += downloadedText[i];
-                                    }
-                                    else
-                                    {
-                                        if(int.Parse(strings) > PlayerPrefs.GetInt("id"))
+                                //Debug.Log(downloadedText[i]);
+                                //Debug.Log(downloadedStrings);
+
+                                switch (downloadedStrings)
+                                {
+                                    case "id":
+                                        if (downloadedText[i] != ';')
                                         {
-                                            PlayerPrefs.SetInt("id", int.Parse(strings));
+                                            id += downloadedText[i];
+                                            //Debug.Log(id);
                                         }
-                                        strings = "";
-                                        downloadedStrings = "";
-                                    }
-                                    break;
+                                        else
+                                        {
+                                            PlayerPrefs.SetInt("id", int.Parse(id));
+                                            id = "";
+                                            downloadedStrings = "";
+                                        }
+                                        break;
 
-                                case "step":
-                                    if (downloadedText[i] != ';')
-                                    {
-                                        strings += downloadedText[i];
-                                    }
-                                    else
-                                    {
-                                        StartCoroutine(CreateUnit(int.Parse(strings)));
-                                        strings = "";
-                                        downloadedStrings = "";
-                                    }
-                                    break;
+                                    case "player":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            player += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            downloadedStrings = "";
+                                        }
+                                        break;
 
-                                default:
-                                    downloadedStrings += downloadedText[i];
-                                    break;
+                                    case "unix_time":
+                                        if (player == "1")
+                                        {
+                                            if (downloadedText[i] != ';')
+                                            {
+                                                p1LastUnixTime += downloadedText[i];
+                                            }
+                                            else
+                                            {
+                                                HandleDisconnections.P1_LAST_UNIX_TIME = p1LastUnixTime;
+                                                p1LastUnixTime = "";
+                                                downloadedStrings = "";
+                                                break;
+                                            }
+                                        }
+                                        else if (player == "2")
+                                        {
+                                            if (downloadedText[i] != ';')
+                                            {
+                                                p2LastUnixTime += downloadedText[i];
+                                            }
+                                            else
+                                            {
+                                                HandleDisconnections.P2_LAST_UNIX_TIME = p2LastUnixTime;
+                                                p2LastUnixTime = "";
+                                                downloadedStrings = "";
+                                                break;
+                                            }
+                                        }
+                                        break;
+
+                                    case "posx":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            posx += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
+                                    case "posy":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            posy += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
+                                    case "step":
+                                        if (player == "1")
+                                        {
+                                            if (downloadedText[i] != ';')
+                                            {
+                                                p1Step += downloadedText[i];
+                                            }
+                                            else
+                                            {
+                                                step = p1Step;
+                                                HandleDisconnections.p1CurrentStep = p1Step;
+                                                p1Step = "";
+                                                downloadedStrings = "";
+                                                break;
+                                            }
+                                        }
+                                        else if (player == "2")
+                                        {
+                                            if (downloadedText[i] != ';')
+                                            {
+                                                p2Step += downloadedText[i];
+                                            }
+                                            else
+                                            {
+                                                step = p2Step;
+                                                HandleDisconnections.p2CurrentStep = p2Step;
+                                                p2Step = "";
+                                                downloadedStrings = "";
+                                                break;
+                                            }
+                                        }
+                                        break;
+
+                                    case "actionPla_yer":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            actionPlayer += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            downloadedStrings = "";
+                                            break;
+                                        }
+                                        break;
+
+                                    case "actionSt_ep":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            actionStep += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            downloadedStrings = "";
+                                            break;
+                                        }
+                                        break;
+
+                                    case "CreateMiner":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            strings += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            Transform u;
+                                            if (actionPlayer == "1") { u = p1Miner; } else { u = p2Miner; }
+                                            //Debug.Log($"actionStep{actionStep}\n actionplayer{actionPlayer}\n posx{posx} posy {posy}");
+                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), u));
+
+                                            step = "";
+                                            player = "";
+                                            posx = "";
+                                            posy = "";
+                                            actionStep = "";
+                                            actionPlayer = "";
+                                            strings = "";
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
+                                    case "CreateSwordsman":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            strings += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            Transform u;
+                                            if (actionPlayer == "1") { u = p1Swordsman; } else { u = p2Swordsman; }
+                                            //Debug.Log($"actionStep{actionStep}\n actionplayer{actionPlayer}\n posx{posx} posy {posy}");
+                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), u));
+
+                                            posx = "";
+                                            posy = "";
+                                            actionStep = "";
+                                            actionPlayer = "";
+                                            strings = "";
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
+                                    case "EmptyAction":
+                                        if (downloadedText[i] != ';')
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            //Debug.Log("step:" + step + "player: " + player );
+                                            step = "";
+                                            player = "";
+                                            posx = "";
+                                            posy = "";
+                                            strings = "";
+                                            actionPlayer = "";
+                                            actionStep = "";
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
+                                    default:
+                                        downloadedStrings += downloadedText[i];
+                                        break;
+                                }
                             }
                         }
                     }
@@ -106,17 +312,26 @@ public class PhpRead : MonoBehaviour
             yield return waitTime;
         }
     }
-
-    private IEnumerator CreateUnit(int step)
+    private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, Transform _unitToCreate)
     {
-        Debug.Log(step);
-        int stepToCheck = step + 50;
-        Debug.Log("Create Soldier!");
+        Debug.Log("Create Unit!");
+        //Debug.Log(step);
+        int stepToCheck = actionStep + 100;
+
+        Transform unitToCreate = _unitToCreate;
+        Transform unitParent = p1Units;
+        if(player == 1)
+        {
+        }
+        else if (player == 2)
+        {
+            unitParent = p2Units;
+        }
         while(true)
         {
             if(stepToCheck == StepCounter.currentStep)
             {
-                InstantiateUnit(p1Swordsman, p1Units, 0, 0);
+                InstantiateUnit(unitToCreate, unitParent, posx, posy);
                 yield break;
             }
             yield return waitForFixedUpdate;
@@ -125,7 +340,7 @@ public class PhpRead : MonoBehaviour
 
     private void InstantiateUnit(Transform unit, Transform parent, int posx, int posy)
     {
-        Debug.Log("Soldier Created!");
+        //Debug.Log("Soldier Created!");
 
         createdUnit = Instantiate(unit, parent);
         createdUnit.position = new Vector2(posx, posy);
