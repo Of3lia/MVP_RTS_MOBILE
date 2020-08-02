@@ -8,7 +8,8 @@ public class Miner : MobileUnit
     private Transform goldMines;
     private bool hasGold = false;
     private Transform castle;
-    private int gatheringRate = 2;
+    private int gatheringRate = 3;
+    private int player;
 
     protected override void InitializeUnit()
     {
@@ -19,10 +20,12 @@ public class Miner : MobileUnit
         if (CompareTag("1"))
         {
             castle = GameObject.Find("P1_Castle").transform;
+            player = 1;
         }
         else if (CompareTag("2"))
         {
             castle = GameObject.Find("P2_Castle").transform;
+            player = 2;
         }
         else
         {
@@ -62,6 +65,10 @@ public class Miner : MobileUnit
                 if (Vector2.Distance(transform.position, castle.position) < 1)
                 {
                     hasGold = false;
+                    if (player == GENERAL.PLAYER)
+                    {
+                        GENERAL.GOLD += gatheringRate;
+                    }
                 }
             }
         }

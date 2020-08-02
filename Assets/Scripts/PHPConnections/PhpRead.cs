@@ -66,8 +66,10 @@ public class PhpRead : MonoBehaviour
                 WWWForm form = new WWWForm();
                 form.AddField("id", PlayerPrefs.GetInt("id"));
                 form.AddField("room", GENERAL.ROOM);
-                if (GENERAL.TESTING_MODE) { form.AddField("room", "test_room"); }
 
+                #if UNITY_EDITOR
+                    form.AddField("room", "test_room");
+                #endif
 
                 using (UnityWebRequest webRequest = UnityWebRequest.Post( _uri , form))
                 {
@@ -314,7 +316,7 @@ public class PhpRead : MonoBehaviour
     }
     private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, Transform _unitToCreate)
     {
-        Debug.Log("Create Unit!");
+        //Debug.Log("Create Unit!");
         //Debug.Log(step);
         int stepToCheck = actionStep + 100;
 

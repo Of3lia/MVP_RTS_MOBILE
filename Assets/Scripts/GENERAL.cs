@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 static class GENERAL
 {
@@ -9,10 +10,17 @@ static class GENERAL
     public static int ISREADY = 0;
     public static string ROOM = "";
     public static string SELECTED_CARD = "";
-    public static int GOLD = 0;
-    
-    public static bool TESTING_MODE = false;
+    public static int UNIT_COST;
 
+    private static int gold;
+    public static int GOLD
+    {
+        get => gold;
+        set { gold = value; goldNumText.text = value.ToString(); }
+    }
+    private static Text goldNumText = GameObject.Find("GoldNumText").GetComponent<Text>();
+    
+    //public static bool TESTING_MODE = false;
 
     public static int Scene_Opening = 0;
     public static int Scene_RegisterLogin = 1;

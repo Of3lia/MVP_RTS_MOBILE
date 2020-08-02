@@ -22,14 +22,18 @@ public class HandleDisconnections : MonoBehaviour
 
     public static bool connected;
 
-    [SerializeField]
+    //[SerializeField]
     private bool developingMode = false;
 
     private void Awake()
     {
         Application.targetFrameRate = 20;
         Time.timeScale = 0;
-        GENERAL.TESTING_MODE = developingMode;
+        //GENERAL.TESTING_MODE = developingMode;
+
+        #if UNITY_EDITOR
+            developingMode = true;
+        # endif
     }
     private void Start()
     {

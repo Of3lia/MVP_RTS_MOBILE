@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.EventSystems;
 
 public class PhpWrite : MonoBehaviour
 {
     private string action = "EmptyAction;";
     private WaitForSecondsRealtime waitTime;
+    [SerializeField]
+    private UserConsole userConsoleText;
     [SerializeField]
     private Transform creationFlag;
     private Transform creationFlagClone;
@@ -24,35 +28,48 @@ public class PhpWrite : MonoBehaviour
         StartCoroutine(WritePhp());
     }
 
-    private void OnGUI()
+    private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            CreateSelectedCard_Click();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                CreateSelectedCard_Click();
+            }
+        } 
     }
 
     private void CreateSelectedCard_Click()
     {
         if (GENERAL.SELECTED_CARD != "")
         {
-            creationFlagClone = Instantiate(creationFlag);
-            creationFlagClone.position = new Vector2(
-                Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-            Destroy(creationFlagClone.gameObject, 5);
-
-            if (action == "EmptyAction;")
+            if (GENERAL.GOLD < GENERAL.UNIT_COST)
             {
-                action = "actionPla_yer" + GENERAL.PLAYER + ";actionSt_ep" + StepCounter.currentStep + ";posx" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
-                    + ";posy" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).y) + ";" + GENERAL.SELECTED_CARD + ";";
+                StartCoroutine(userConsoleText.WriteText("Not enough gold to create unit", Color.red));
             }
             else
             {
-                action += "actionPla_yer" + GENERAL.PLAYER + ";actionSt_ep" + StepCounter.currentStep +
-                    /*";step" + StepCounter.currentStep + */ ";player" + GENERAL.PLAYER +
-                    ";posx" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
-                    + ";posy" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).y) + ";" + GENERAL.SELECTED_CARD + ";";
+                creationFlagClone = Instantiate(creationFlag);
+                creationFlagClone.position = new Vector2(
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+                Destroy(creationFlagClone.gameObject, 5);
+
+                GENERAL.GOLD -= GENERAL.UNIT_COST;
+
+                if (action == "EmptyAction;")
+                {
+                    action = "actionPla_yer" + GENERAL.PLAYER + ";actionSt_ep" + StepCounter.currentStep + ";posx" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+                        + ";posy" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).y) + ";" + GENERAL.SELECTED_CARD + ";";
+                }
+                else
+                {
+                    action += "actionPla_yer" + GENERAL.PLAYER + ";actionSt_ep" + StepCounter.currentStep +
+                        /*";step" + StepCounter.currentStep + */ ";player" + GENERAL.PLAYER +
+                        ";posx" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+                        + ";posy" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).y) + ";" + GENERAL.SELECTED_CARD + ";";
+                }
             }
+            
         }
     }
 
@@ -67,8 +84,10 @@ public class PhpWrite : MonoBehaviour
                 form.AddField("player", GENERAL.PLAYER);
                 form.AddField("action", action);
                 form.AddField("room", GENERAL.ROOM);
-                if (GENERAL.TESTING_MODE) { form.AddField("room", "test_room"); }
 
+                #if UNITY_EDITOR
+                    form.AddField("room", "test_room");
+                #endif
                 using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
                 {
                     yield return webRequest.SendWebRequest();
