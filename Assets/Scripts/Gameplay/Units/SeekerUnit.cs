@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeekerUnit : Unit, ISeek
 {
     protected Transform closestTarget;
-    public Transform GetClosest(Transform units_container, float LOS = 10 /* LOS "Line of sight" will be used in future */)
+    public Transform GetClosest(Transform units_container)
     {
         if (units_container.childCount > 0)
         {
@@ -20,7 +20,11 @@ public class SeekerUnit : Unit, ISeek
                     closestTarget = units_container.GetChild(i).transform;
                 }
             }
-            return closestTarget;
+            if (Vector2.Distance(transform.position, closestTarget.position) < los)
+            {
+                return closestTarget;
+            }
+            else { closestTarget = null; }
         }
         return null;
     }

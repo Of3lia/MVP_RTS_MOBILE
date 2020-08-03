@@ -104,22 +104,33 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.20496617
       objectReference: {fileID: 0}
-    - target: {fileID: 5757679814835285917, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
+    - target: {fileID: 8614613946203913473, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
         type: 3}
-      propertyPath: m_AnchorMax.x
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286749201697317555, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757679814835285917, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757679814835285917, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
+        type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3668664481165668130, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
         type: 3}
       propertyPath: m_Text
       value: GoldMine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3524623300251448694, guid: 028fd7ab975f6b24aa4d25ab7c303d48, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 028fd7ab975f6b24aa4d25ab7c303d48, type: 3}
 --- !u!1 &2805589379752612474 stripped
 GameObject:

@@ -77,9 +77,17 @@ public class FightingMobileUnit : MobileUnit
                     attack = true;
                 }
             }
+            else
+            {
+                WalkForward();
+            }
         }
     }
-
+    
+    private void WalkForward()
+    {
+        transform.Translate(new Vector2(0, speed));
+    }
     public override void WalkTo(Transform target)
     {
         base.WalkTo(target);

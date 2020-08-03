@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.LWRP;
 using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
@@ -14,7 +15,10 @@ public class Unit : MonoBehaviour
     int maxHealthPoints;
     int currentHealthPoints;
 
-    float los = 3; // LINE OF SIGHT
+    private Light2D light2d;
+
+    [SerializeField]
+    protected float los = 3; // LINE OF SIGHT
 
     [SerializeField]
     private int CurrentHealthPoints 
@@ -46,7 +50,8 @@ public class Unit : MonoBehaviour
 
     private void Die()
     {
-        Destroy(this.gameObject, 0.1f);
+        light2d.pointLightInnerRadius = 0;
+        Destroy(this.gameObject, 0.5f);
     }
 
     protected virtual void InitializeUnit()
@@ -55,117 +60,9 @@ public class Unit : MonoBehaviour
         hpSlider = GetComponent<SharedComponents>().hpSlider;
         hpText = GetComponent<SharedComponents>().hpText;
         CurrentHealthPoints = MaxHealthPoints;
+        light2d = GetComponent<Light2D>();
+        if (!CompareTag(GENERAL.PLAYER.ToString())) { light2d.enabled = false; hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false); }
+        light2d.pointLightInnerRadius = los - 0.5f;
+        light2d.pointLightOuterRadius= los;
     }
-
-    /*
-    protected SharedComponents sharedComponents;
-
-    private Slider hpSlider;
-    private Text hpText;
-
-    [SerializeField]
-    private int healthPoints = 1;
-    [SerializeField]
-    private int attackPoints = 1;
-    [SerializeField]
-    protected float
-        range = 1;
-    [SerializeField]
-    private float attackSpeed = 0.5f;
-
-    private Transform enemyUnits;
-
-    protected Transform closestEnemy;
-
-    protected bool isAttacking = false;
-
-    private void Awake()
-    {
-        sharedComponents = GetComponent<SharedComponents>();
-        InitializeUnit();
-    }
-
-    private void Start()
-    {
-        if (CompareTag("1")) { enemyUnits = sharedComponents.p2Units; }
-        else if (CompareTag("2")) { enemyUnits = sharedComponents.p1Units; }
-        else { Debug.LogWarning("No Team Tag Assigned"); }
-    }
-
-    private void InitializeUnit()
-    {
-        hpSlider = sharedComponents.hpSlider;
-        hpText = sharedComponents.hpText;
-
-        hpSlider.maxValue = healthPoints;
-        hpSlider.value = healthPoints;
-
-        hpText.text = healthPoints.ToString();
-    }
-
-    protected Transform GetClosestEnemy()
-    {
-        if (enemyUnits.childCount > 0)
-        {
-            if (closestEnemy == null)
-            {
-                closestEnemy = enemyUnits.GetChild(0);
-            }
-            for (int i = 0; i < enemyUnits.childCount; i++)
-            {
-                if (Vector2.Distance( transform.position, enemyUnits.GetChild(i).position) 
-                                    < 
-                    Vector2.Distance(transform.position, closestEnemy.position) )
-                {
-                    closestEnemy = enemyUnits.GetChild(i).transform;
-                } 
-            }
-        }
-        return closestEnemy;
-    }
-
-    protected void Attack()
-    {
-        isAttacking = true;
-        InvokeRepeating("AttackRepeating",attackSpeed, attackSpeed);
-    }
-
-    private void AttackRepeating()
-    {
-        if (closestEnemy != null)
-        {
-            closestEnemy.GetComponent<Unit>().TakeDamage(attackPoints);
-        }
-        else
-        {
-            StopAttacking();
-        }
-    }
-
-    protected void StopAttacking()
-    {
-        isAttacking = true;
-        CancelInvoke("AttackRepeating");
-    }
-
-    public void TakeDamage(int attack)
-    {
-        if (healthPoints > attack)
-        {
-            healthPoints -= attack;
-            hpSlider.value = healthPoints;
-            hpText.text = healthPoints.ToString();
-        }
-        else
-        {
-            StopAttacking();
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        Destroy(this.gameObject, 0.1f);
-    }
-    */
 }

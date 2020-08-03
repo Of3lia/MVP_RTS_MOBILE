@@ -47,13 +47,16 @@ public class Building : RangedUnit
     {
         while (true)
         {
-            GetClosest(enemies, buildingRange);
-            if (!projectile.gameObject.activeSelf)
+            GetClosest(enemies);
+            if (closestTarget != null)
             {
-                if (Vector2.Distance(transform.position, closestTarget.position) < buildingRange)
+                if (!projectile.gameObject.activeSelf)
                 {
-                    projectile.gameObject.SetActive(true);
-                    projectile.InitializeProjectile(closestTarget, attackPoints);
+                    if (Vector2.Distance(transform.position, closestTarget.position) < buildingRange)
+                    {
+                        projectile.gameObject.SetActive(true);
+                        projectile.InitializeProjectile(closestTarget, attackPoints);
+                    }
                 }
             }
             yield return attackReloadTime;

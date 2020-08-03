@@ -55,7 +55,7 @@ public class Miner : MobileUnit
                 if (Vector2.Distance(transform.position, closestTarget.position) < 1)
                 {
                     hasGold = true;
-                    closestTarget.GetComponent<GoldMine>().BeMined(gatheringRate);
+                    closestTarget.GetComponent<GoldMine>().BeMined(gatheringRate, int.Parse(tag));
                 }
             }
             else

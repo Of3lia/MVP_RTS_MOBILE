@@ -26,8 +26,9 @@ public class GoldMine : MonoBehaviour
         hpText.text = remainingGold.ToString();
     }
 
-    public void BeMined(int gatheringRate)
+    public void BeMined(int gatheringRate, int tag)
     {
+        if (tag == GENERAL.PLAYER) { ShowResourcesLeft(); }
         if(hpSlider.value > gatheringRate)
         {
             remainingGold-= gatheringRate;
@@ -38,6 +39,20 @@ public class GoldMine : MonoBehaviour
         {
             Destroy(this.gameObject, 0.1f);
         }
+    }
+
+    private void ShowResourcesLeft()
+    {
+        CancelInvoke("HideResourcesLeft");
+        hpSlider.gameObject.SetActive(true);
+        hpText.gameObject.SetActive(true);
+        Invoke("HideResourcesLeft", 1);
+    }
+
+    private void HideResourcesLeft()
+    {
+        hpSlider.gameObject.SetActive(false);
+        hpText.gameObject.SetActive(false);
     }
 }
 

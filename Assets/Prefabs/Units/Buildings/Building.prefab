@@ -82,5 +82,15 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3524623300251448694, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524623300251448694, guid: 028fd7ab975f6b24aa4d25ab7c303d48,
+        type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 5.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 028fd7ab975f6b24aa4d25ab7c303d48, type: 3}

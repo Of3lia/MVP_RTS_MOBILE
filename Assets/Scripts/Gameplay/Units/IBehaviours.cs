@@ -14,7 +14,7 @@ interface IMobile
 
 interface ISeek
 {
-    Transform GetClosest(Transform units_container, float LOS);
+    Transform GetClosest(Transform units_container);
 }
 
 interface IRanged
