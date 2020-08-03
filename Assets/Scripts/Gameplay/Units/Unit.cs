@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
         set { maxHealthPoints = value; hpSlider.maxValue = value; hpText.text = value.ToString(); }
     }
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         InitializeUnit();
     }

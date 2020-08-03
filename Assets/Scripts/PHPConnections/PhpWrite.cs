@@ -15,28 +15,62 @@ public class PhpWrite : MonoBehaviour
     private Transform creationFlag;
     private Transform creationFlagClone;
 
+    private delegate void InputToCheck();
+    InputToCheck inputToCheck;
+
     private string _uri;
 
     private void Awake()
     {
         _uri = GENERAL.SERVER + "Write.php";
+
+        // Check if game is running on editor, windows or andoid
+
+#if UNITY_EDITOR
+        inputToCheck = CheckForClick;
+# elif UNITY_STANDALONE
+        inputToCheck = CheckForClick;
+#else
+        inputToCheck = CheckForTouch;
+#endif
     }
 
     private void Start()
     {
         waitTime = new WaitForSecondsRealtime(1);
+        StartCoroutine(CleanRoom());
         StartCoroutine(WritePhp());
     }
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        ExecuteMethod(inputToCheck);
+    }
+
+    void ExecuteMethod(InputToCheck del)
+    {
+        del();
+    }
+
+    // This Method is for testing in unity editor
+    private void CheckForClick()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
                 CreateSelectedCard_Click();
             }
-        } 
+        }
+    }
+
+    private void CheckForTouch()
+    {
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        {
+            if (!EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                CreateSelectedCard_Click();
+        }
     }
 
     private void CreateSelectedCard_Click()
@@ -69,7 +103,7 @@ public class PhpWrite : MonoBehaviour
                         + ";posy" + Mathf.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition).y) + ";" + GENERAL.SELECTED_CARD + ";";
                 }
             }
-            
+
         }
     }
 
@@ -85,9 +119,9 @@ public class PhpWrite : MonoBehaviour
                 form.AddField("action", action);
                 form.AddField("room", GENERAL.ROOM);
 
-                #if UNITY_EDITOR
-                    form.AddField("room", "test_room");
-                #endif
+#if UNITY_EDITOR
+                form.AddField("room", "test_room");
+#endif
                 using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
                 {
                     yield return webRequest.SendWebRequest();
@@ -107,5 +141,32 @@ public class PhpWrite : MonoBehaviour
             }
             yield return waitTime;
         }
+    }
+
+    public IEnumerator CleanRoom()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("step", 0);
+        form.AddField("room", GENERAL.ROOM);
+
+#if UNITY_EDITOR
+        form.AddField("room", "test_room");
+#endif
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
+        {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError || webRequest.isHttpError)
+            {
+                Debug.Log(webRequest.error);
+            }
+            else
+            {
+                //Debug.Log("Form upload complete!");
+
+                //Debug.Log(webRequest.downloadHandler.text);
+            }
+        }
+        yield return waitTime;
     }
 }

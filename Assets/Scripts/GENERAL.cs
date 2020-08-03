@@ -18,7 +18,7 @@ static class GENERAL
         get => gold;
         set { gold = value; goldNumText.text = value.ToString(); }
     }
-    private static Text goldNumText = GameObject.Find("GoldNumText").GetComponent<Text>();
+    public static Text goldNumText;
     
     //public static bool TESTING_MODE = false;
 

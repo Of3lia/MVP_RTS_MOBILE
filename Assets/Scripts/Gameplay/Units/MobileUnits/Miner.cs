@@ -8,7 +8,7 @@ public class Miner : MobileUnit
     private Transform goldMines;
     private bool hasGold = false;
     private Transform castle;
-    private int gatheringRate = 3;
+    private int gatheringRate = 7;
     private int player;
 
     protected override void InitializeUnit()
@@ -35,7 +35,7 @@ public class Miner : MobileUnit
 
     private void FixedUpdate()
     {
-        if (Time.frameCount % 10 == 0)
+        if (StepCounter.currentStep % 10 == 0)
         {
             closestTarget = GetClosest(goldMines);
         }

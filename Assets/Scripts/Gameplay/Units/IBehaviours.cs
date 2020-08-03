@@ -12,7 +12,12 @@ interface IMobile
     void WalkTo(Transform target);
 }
 
-interface ISeeker
+interface ISeek
 {
     Transform GetClosest(Transform units_container, float LOS);
+}
+
+interface IRanged
+{
+    void ShootProjectile(Vector2 targetPos);
 }

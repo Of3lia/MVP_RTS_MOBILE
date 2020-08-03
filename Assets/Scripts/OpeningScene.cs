@@ -7,9 +7,9 @@ public class OpeningScene : MonoBehaviour
 {
     private void Start()
     {
-        Screen.sleepTimeout = 150;
         Invoke("LoadMenu", 2);
         Time.timeScale = 1;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private void LoadMenu()

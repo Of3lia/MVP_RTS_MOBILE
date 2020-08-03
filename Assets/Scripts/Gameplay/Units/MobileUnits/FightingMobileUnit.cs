@@ -9,6 +9,10 @@ public class FightingMobileUnit : MobileUnit, IFighter
 
     Transform enemies;
 
+    [SerializeField]
+    private int AtackDelay = 15;
+    private int creationFrame;
+
     protected override void InitializeUnit()
     {
         base.InitializeUnit();
@@ -19,8 +23,10 @@ public class FightingMobileUnit : MobileUnit, IFighter
             enemies = sharedComponents.p1Units;
         else
             Debug.LogWarning("No tag assigned");
+
+        creationFrame = StepCounter.currentStep;
     }
-    
+
     private void FixedUpdate()
     {
         StateMachine();
@@ -28,7 +34,7 @@ public class FightingMobileUnit : MobileUnit, IFighter
 
     protected override void StateMachine()
     {
-        if (Time.frameCount % 5 == 0)
+        if ((StepCounter.currentStep + creationFrame) % AtackDelay == 0)
         {
             closestTarget = GetClosest(enemies);
         }
@@ -36,7 +42,10 @@ public class FightingMobileUnit : MobileUnit, IFighter
         {
             if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
             {
-                Attack();
+                if (StepCounter.currentStep % 10 == 0)
+                {
+                    Attack();
+                }
             }
             else
             {
@@ -49,17 +58,21 @@ public class FightingMobileUnit : MobileUnit, IFighter
     {
         base.WalkTo(target);
         
-        if (!animator.GetBool("walk"))
+        /*if (!animator.GetBool("walk"))
         {
             animator.SetBool("walk", true);
             animator.SetBool("fight", false);
         }
+        */
     }
     public void Attack()
     {
         if (closestTarget != null)
-                animator.SetBool("fight", true);
-                animator.SetBool("walk", false);
+        {
+            //animator.SetBool("fight", true);
+            //animator.SetBool("walk", false);
+            MakeDamage();
+        }
     }
 
     // This is called on the animator
