@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FightingMobileUnit : MobileUnit, IFighter
+public class FightingMobileUnit : MobileUnit
 {
     [SerializeField]
     protected int attackPoints = 3;
 
     Transform enemies;
 
+    WaitForSeconds attackReloadTime;
+
     [SerializeField]
     private int AtackDelay = 15;
     private int creationFrame;
+    
+    bool attack;
+
+    WaitForFixedUpdate waitFrame;
 
     protected override void InitializeUnit()
     {
@@ -25,6 +31,9 @@ public class FightingMobileUnit : MobileUnit, IFighter
             Debug.LogWarning("No tag assigned");
 
         creationFrame = StepCounter.currentStep;
+        attackReloadTime = new WaitForSeconds(0.5f);
+        waitFrame = new WaitForFixedUpdate();
+        StartCoroutine(AttackSystem());
     }
 
     private void FixedUpdate()
@@ -34,22 +43,39 @@ public class FightingMobileUnit : MobileUnit, IFighter
 
     protected override void StateMachine()
     {
-        if ((StepCounter.currentStep + creationFrame) % AtackDelay == 0)
+        /*  if ((StepCounter.currentStep + creationFrame) % AtackDelay == 0)
+          {
+              closestTarget = GetClosest(enemies);
+          }
+          if (closestTarget != null)
+          {
+              if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
+              {
+                  if (StepCounter.currentStep % 10 == 0)
+                  {
+                      Attack();
+                  }
+              }
+              else
+              {
+                  WalkTo(closestTarget);
+              }
+          }
+        */
+
+
+        if (!attack)
         {
-            closestTarget = GetClosest(enemies);
-        }
-        if (closestTarget != null)
-        {
-            if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
+            if (closestTarget != null)
             {
-                if (StepCounter.currentStep % 10 == 0)
+                if (Vector2.Distance(transform.position, closestTarget.position) > 1)
                 {
-                    Attack();
+                    WalkTo(closestTarget);
                 }
-            }
-            else
-            {
-                WalkTo(closestTarget);
+                else
+                {
+                    attack = true;
+                }
             }
         }
     }
@@ -65,17 +91,40 @@ public class FightingMobileUnit : MobileUnit, IFighter
         }
         */
     }
-    public void Attack()
+    
+    private IEnumerator AttackSystem()
     {
-        if (closestTarget != null)
+        while (true)
         {
-            //animator.SetBool("fight", true);
-            //animator.SetBool("walk", false);
-            MakeDamage();
+            GetClosest(enemies);
+
+            while (attack)
+            {
+                if (closestTarget != null)
+                {
+                    if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
+                    {
+                        yield return attackReloadTime; // Attack Delay to start
+                        MakeDamage();
+                        yield return attackReloadTime; // Attack Delay to reload
+                    }
+                    else
+                    {
+                        attack = false;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
         }
     }
 
-    // This is called on the animator
     private void MakeDamage()
     {
         if (closestTarget != null)

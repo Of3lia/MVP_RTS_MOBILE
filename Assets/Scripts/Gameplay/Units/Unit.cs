@@ -14,6 +14,8 @@ public class Unit : MonoBehaviour
     int maxHealthPoints;
     int currentHealthPoints;
 
+    float los = 3; // LINE OF SIGHT
+
     [SerializeField]
     private int CurrentHealthPoints 
     {
