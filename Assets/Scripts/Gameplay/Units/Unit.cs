@@ -20,6 +20,8 @@ public class Unit : MonoBehaviour
     [SerializeField]
     protected float los = 3; // LINE OF SIGHT
 
+    protected bool nonPlayerUnit;
+
     [SerializeField]
     private int CurrentHealthPoints 
     {
@@ -42,10 +44,24 @@ public class Unit : MonoBehaviour
     
     public void TakeDamage(int dmg)
     {
-        if(CurrentHealthPoints > dmg)
+        if (CurrentHealthPoints > dmg)
+        {
             CurrentHealthPoints -= dmg;
+            if (!hpSlider.gameObject.activeSelf)
+            {
+                hpSlider.gameObject.SetActive(true);
+                hpText.gameObject.SetActive(true);
+                Invoke("DesactivateHpSlider", 3);
+            }
+        }
         else
             Die();
+    }
+
+    private void DesactivateHpSlider()
+    {
+        hpSlider.gameObject.SetActive(false);
+        hpText.gameObject.SetActive(false);
     }
 
     private void Die()
@@ -61,8 +77,28 @@ public class Unit : MonoBehaviour
         hpText = GetComponent<SharedComponents>().hpText;
         CurrentHealthPoints = MaxHealthPoints;
         light2d = GetComponent<Light2D>();
-        if (!CompareTag(GENERAL.PLAYER.ToString())) { light2d.enabled = false; hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false); }
+        if (!CompareTag(GENERAL.PLAYER.ToString())) 
+        {
+            nonPlayerUnit = true;
+        }
+
+        if (nonPlayerUnit)
+        {
+            light2d.enabled = false; hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            Invoke("DesactivateHpSlider", 3);
+        }
         light2d.pointLightInnerRadius = los - 0.5f;
-        light2d.pointLightOuterRadius= los;
+        light2d.pointLightOuterRadius = los;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (GetComponent<MobileUnit>() != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, collision.transform.position, -0.01f);
+        }
     }
 }

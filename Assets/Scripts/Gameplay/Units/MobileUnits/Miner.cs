@@ -10,7 +10,7 @@ public class Miner : MobileUnit
     private Transform castle;
     private int gatheringRate = 7;
     private int player;
-
+    private float initialLos;
     protected override void InitializeUnit()
     {
         base.InitializeUnit();
@@ -31,14 +31,23 @@ public class Miner : MobileUnit
         {
             Debug.LogWarning("No tag assigned");
         }
+        initialLos = los;
     }
 
     private void FixedUpdate()
     {
-        if (StepCounter.currentStep % 10 == 0)
+        if (StepCounter.currentStep % 5 == 0)
         {
-            closestTarget = GetClosest(goldMines);
+
+            if (closestTarget == null)
+            {
+                closestTarget = GetClosest(goldMines);
+                los += 1;
+            }
+            else
+                los = initialLos;
         }
+        
         StateMachine();
         //Debug.Log(goldMines);
         //Debug.Log(castle);

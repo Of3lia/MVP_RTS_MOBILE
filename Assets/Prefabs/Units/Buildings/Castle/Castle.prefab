@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoints: 1200
-  los: 3
+  los: 6
   projectile: {fileID: 8923805919908750383}
 --- !u!1001 &8637270311152902955
 PrefabInstance:

@@ -7,6 +7,9 @@ public class FightingMobileUnit : MobileUnit
     [SerializeField]
     protected int attackPoints = 3;
 
+    private int direction = 1;
+    private int mapLimit = 8;
+
     Transform enemies;
 
     WaitForSeconds attackReloadTime;
@@ -26,7 +29,11 @@ public class FightingMobileUnit : MobileUnit
         if (CompareTag("1"))
             enemies = sharedComponents.p2Units;
         else if (CompareTag("2"))
+        {
             enemies = sharedComponents.p1Units;
+            direction = -1;
+            mapLimit = -8;
+        }
         else
             Debug.LogWarning("No tag assigned");
 
@@ -43,50 +50,39 @@ public class FightingMobileUnit : MobileUnit
 
     protected override void StateMachine()
     {
-        /*  if ((StepCounter.currentStep + creationFrame) % AtackDelay == 0)
-          {
-              closestTarget = GetClosest(enemies);
-          }
-          if (closestTarget != null)
-          {
-              if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
-              {
-                  if (StepCounter.currentStep % 10 == 0)
-                  {
-                      Attack();
-                  }
-              }
-              else
-              {
-                  WalkTo(closestTarget);
-              }
-          }
-        */
-
-
         if (!attack)
         {
             if (closestTarget != null)
             {
-                if (Vector2.Distance(transform.position, closestTarget.position) > 1)
-                {
+                if (Vector2.Distance(transform.position, closestTarget.GetComponent<Collider2D>().ClosestPoint(transform.position)) > 0.5f)
                     WalkTo(closestTarget);
-                }
                 else
-                {
                     attack = true;
-                }
             }
             else
-            {
                 WalkForward();
-            }
+        }
+        else if(closestTarget == null)
+        {
+            attack = false;
         }
     }
-    
+
     private void WalkForward()
     {
-        transform.Translate(new Vector2(0, speed));
+        if (transform.position.y * direction <= mapLimit * direction)
+            transform.Translate(new Vector2(0, speed * direction));
+        else
+        {
+            if(transform.position.x > 0)
+            {   // Go to the left
+                transform.Translate(new Vector2(-speed, 0));
+            }
+            else
+            {   // Go to the right
+                transform.Translate(new Vector2(speed, 0));
+            }
+        }
     }
     public override void WalkTo(Transform target)
     {
@@ -110,7 +106,7 @@ public class FightingMobileUnit : MobileUnit
             {
                 if (closestTarget != null)
                 {
-                    if (Vector2.Distance(transform.position, closestTarget.position) <= 1)
+                    if (Vector2.Distance(transform.position, closestTarget.GetComponent<Collider2D>().ClosestPoint(transform.position)) <= 0.5f)
                     {
                         yield return attackReloadTime; // Attack Delay to start
                         MakeDamage();

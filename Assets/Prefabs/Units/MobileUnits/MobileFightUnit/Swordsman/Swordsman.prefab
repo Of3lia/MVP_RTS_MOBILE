@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoints: 120
+  los: 3
   speed: 0.05
   attackPoints: 11
+  AtackDelay: 15
 --- !u!1001 &4253336996981189575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,6 +99,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6385018123562088991, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7262727592100652663, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -112,11 +119,6 @@ PrefabInstance:
       propertyPath: m_Text
       value: Swordsman
       objectReference: {fileID: 0}
-    - target: {fileID: 6385018123562088991, guid: 9b79fe63509e33a4997b21857c4f3cc2,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d3631dc0de0dc2844925e4f44a2baf8a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}
 --- !u!1 &7153462001848809924 stripped

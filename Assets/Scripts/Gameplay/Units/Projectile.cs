@@ -16,6 +16,13 @@ public class Projectile : MonoBehaviour
         targetPos = target.position;
         this.attackPoints = attackPoints;
         targetUnit = target.GetComponent<Unit>();
+
+        // Get Angle in Radians
+        float AngleRad = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x);
+        // Get Angle in Degrees
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        // Rotate Object
+        this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg - 90);
     }
     private void FixedUpdate()
     {
