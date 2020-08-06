@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 
 public class PhpWrite : MonoBehaviour
 {
+
+    #region Fields
+
     private string action = "EmptyAction;";
     private WaitForSecondsRealtime waitTime;
     [SerializeField]
@@ -20,9 +23,11 @@ public class PhpWrite : MonoBehaviour
 
     private string _uri;
 
+    #endregion
+
     private void Awake()
     {
-        _uri = GENERAL.SERVER + "Write.php";
+        _uri = GENERAL.SERVER + "write.php";
 
         // Check if game is running on editor, windows or andoid
 
@@ -124,6 +129,8 @@ public class PhpWrite : MonoBehaviour
 #endif
                 using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
                 {
+                    action = "EmptyAction;";
+
                     yield return webRequest.SendWebRequest();
 
                     if (webRequest.isNetworkError || webRequest.isHttpError)
@@ -137,7 +144,6 @@ public class PhpWrite : MonoBehaviour
                         //Debug.Log(webRequest.downloadHandler.text);
                     }
                 }
-                action = "EmptyAction;";
             }
             yield return waitTime;
         }

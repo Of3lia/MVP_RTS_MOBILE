@@ -12,12 +12,8 @@ public class FightingMobileUnit : MobileUnit
 
     Transform enemies;
 
-    WaitForSeconds attackReloadTime;
+    int attackReloadTimeInFrames = 5;
 
-    [SerializeField]
-    private int AtackDelay = 15;
-    private int creationFrame;
-    
     bool attack;
 
     WaitForFixedUpdate waitFrame;
@@ -37,34 +33,40 @@ public class FightingMobileUnit : MobileUnit
         else
             Debug.LogWarning("No tag assigned");
 
-        creationFrame = StepCounter.currentStep;
-        attackReloadTime = new WaitForSeconds(0.5f);
+        //creationFrame = StepCounter.currentStep;
         waitFrame = new WaitForFixedUpdate();
+
         StartCoroutine(AttackSystem());
     }
 
     private void FixedUpdate()
     {
         StateMachine();
+        Debug.Log(enemyCastle);
+        Debug.Log(attack);
+        Debug.Log(closestTarget);
     }
 
     protected override void StateMachine()
     {
-        if (!attack)
+        if (enemyCastle != null)
         {
-            if (closestTarget != null)
+            if (!attack)
             {
-                if (Vector2.Distance(transform.position, closestTarget.GetComponent<Collider2D>().ClosestPoint(transform.position)) > 0.5f)
-                    WalkTo(closestTarget);
+                if (closestTarget != null)
+                {
+                    if (Vector2.Distance(transform.position, closestTarget.position) > 1f)
+                        WalkTo(closestTarget);
+                    else
+                        attack = true;
+                }
                 else
-                    attack = true;
+                    WalkForward();
             }
-            else
-                WalkForward();
-        }
-        else if(closestTarget == null)
-        {
-            attack = false;
+            else if (closestTarget == null || !closestTarget.gameObject.activeSelf)
+            {
+                attack = false;
+            }
         }
     }
 
@@ -84,6 +86,7 @@ public class FightingMobileUnit : MobileUnit
             }
         }
     }
+
     public override void WalkTo(Transform target)
     {
         base.WalkTo(target);
@@ -106,11 +109,24 @@ public class FightingMobileUnit : MobileUnit
             {
                 if (closestTarget != null)
                 {
-                    if (Vector2.Distance(transform.position, closestTarget.GetComponent<Collider2D>().ClosestPoint(transform.position)) <= 0.5f)
+                    if(Vector2.Distance(transform.position, closestTarget.position) <= 1f)
                     {
-                        yield return attackReloadTime; // Attack Delay to start
+                        int lastStep = StepCounter.currentStep;
+
+                        //while (lastStep > StepCounter.currentStep - attackReloadTimeInFrames)
+                        //{
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        ////}
                         MakeDamage();
-                        yield return attackReloadTime; // Attack Delay to reload
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
+                        yield return waitFrame;
                     }
                     else
                     {
@@ -122,9 +138,6 @@ public class FightingMobileUnit : MobileUnit
                     break;
                 }
             }
-            yield return waitFrame;
-            yield return waitFrame;
-            yield return waitFrame;
             yield return waitFrame;
         }
     }

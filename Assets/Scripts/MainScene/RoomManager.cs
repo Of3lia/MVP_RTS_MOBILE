@@ -204,7 +204,7 @@ public class RoomManager : MonoBehaviour
                 // Debug.Log(www.downloadHandler.text);
 
                 string downloadedText = www.downloadHandler.text;
-                Debug.Log(downloadedText);
+                //Debug.Log(downloadedText);
 
                 if (downloadedText == "")
                 {

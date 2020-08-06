@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5bfda891dab1947aa3b5bad9cfafa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpSlider: {fileID: 0}
+  hpText: {fileID: 0}
   maxHealthPoints: 120
   los: 3
   speed: 0.05
   attackPoints: 11
-  AtackDelay: 15
 --- !u!1001 &4253336996981189575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,6 +105,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1856804533588403912, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Text
+      value: Swordsman
+      objectReference: {fileID: 0}
     - target: {fileID: 7262727592100652663, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -113,11 +119,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856804533588403912, guid: 9b79fe63509e33a4997b21857c4f3cc2,
-        type: 3}
-      propertyPath: m_Text
-      value: Swordsman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}

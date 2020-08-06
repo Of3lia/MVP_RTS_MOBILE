@@ -43,8 +43,8 @@ public class HandleDisconnections : MonoBehaviour
         P1_LAST_UNIX_TIME = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         P2_LAST_UNIX_TIME = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
 
-        waitTime = new WaitForSecondsRealtime(0.1f);
-        waitTime2 = new WaitForSecondsRealtime(3);
+        waitTime = new WaitForSecondsRealtime(0.5f);
+        //waitTime2 = new WaitForSecondsRealtime(3);
 
         StartCoroutine(CheckIfConnectionLost());
     }

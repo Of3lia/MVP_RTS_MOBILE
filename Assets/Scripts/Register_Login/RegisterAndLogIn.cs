@@ -106,7 +106,7 @@ public class RegisterAndLogIn : MonoBehaviour
         form.AddField("password", password);
         form.AddField("mail", mail);
 
-        using (UnityWebRequest www = UnityWebRequest.Post(GENERAL.SERVER + "Register.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(GENERAL.SERVER + "register.php", form))
         {
             yield return www.SendWebRequest();
 

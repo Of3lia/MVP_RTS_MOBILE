@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f013d74d32a5a4e9c5415896ad1fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpSlider: {fileID: 0}
+  hpText: {fileID: 0}
   maxHealthPoints: 45
-  speed: 0.05
+  los: 3
+  speed: 0.06
 --- !u!1001 &8586175213580124680
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,4 +17,9 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(GENERAL.Scene_RegisterLogin);
         PlayerPrefs.DeleteAll();
     }
+
+    public void GoToTestScene()
+    {
+        SceneManager.LoadScene(GENERAL.Scene_GameScene);
+    }
 }

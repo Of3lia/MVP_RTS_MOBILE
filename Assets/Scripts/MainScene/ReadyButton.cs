@@ -9,11 +9,6 @@ public class ReadyButton : MonoBehaviour
     private bool isReady;
     public string isReadyString = "0";
 
-    private void Update()
-    {
-        Debug.Log(GENERAL.PLAYER);
-        Debug.Log(GENERAL.ISREADY);
-    }
     public void Toggle()
     {
         if (GENERAL.PLAYER == id)

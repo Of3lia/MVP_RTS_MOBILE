@@ -8,14 +8,16 @@ public class PhpRead : MonoBehaviour
 
     #region Fields Declarations
 
-    public Transform p1Units;
-    public Transform p2Units;
+    //public Transform p1Units;
+    //public Transform p2Units;
 
-    public Transform p1Swordsman;
-    public Transform p2Swordsman;
+    // public Transform p1Swordsman;
+    //public Transform p2Swordsman;
 
-    public Transform p1Miner;
-    public Transform p2Miner;
+    //public Transform p1Miner;
+    //public Transform p2Miner;
+
+    UnitsPoolManager poolManager;
 
     private Transform createdUnit;
 
@@ -42,9 +44,10 @@ public class PhpRead : MonoBehaviour
 
     #endregion
 
+
     private void Awake()
     {
-        _uri = GENERAL.SERVER + "Read.php";
+        _uri = GENERAL.SERVER + "read.php";
     }
 
     private void Start()
@@ -55,6 +58,8 @@ public class PhpRead : MonoBehaviour
         PlayerPrefs.SetInt("id", 0);
 
         StartCoroutine(ReadPhp());
+
+        poolManager = GetComponent<UnitsPoolManager>();
     }
 
     private IEnumerator ReadPhp()
@@ -246,10 +251,10 @@ public class PhpRead : MonoBehaviour
                                         }
                                         else
                                         {
-                                            Transform u;
-                                            if (actionPlayer == "1") { u = p1Miner; } else { u = p2Miner; }
+                                            //Transform u;
+                                            //if (actionPlayer == "1") { u = p1Miner; } else { u = p2Miner; }
                                             //Debug.Log($"actionStep{actionStep}\n actionplayer{actionPlayer}\n posx{posx} posy {posy}");
-                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), u));
+                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), UnitsPoolManager.UnitsPool.Miner ));
 
                                             step = "";
                                             player = "";
@@ -269,10 +274,10 @@ public class PhpRead : MonoBehaviour
                                         }
                                         else
                                         {
-                                            Transform u;
-                                            if (actionPlayer == "1") { u = p1Swordsman; } else { u = p2Swordsman; }
+                                            //Transform u;
+                                            //if (actionPlayer == "1") { u = p1Swordsman; } else { u = p2Swordsman; }
                                             //Debug.Log($"actionStep{actionStep}\n actionplayer{actionPlayer}\n posx{posx} posy {posy}");
-                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), u));
+                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), UnitsPoolManager.UnitsPool.Swordsman));
 
                                             posx = "";
                                             posy = "";
@@ -314,37 +319,57 @@ public class PhpRead : MonoBehaviour
             yield return waitTime;
         }
     }
-    private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, Transform _unitToCreate)
+
+    private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, UnitsPoolManager.UnitsPool unit)
     {
         //Debug.Log("Create Unit!");
         //Debug.Log(step);
         int stepToCheck = actionStep + 100;
 
-        Transform unitToCreate = _unitToCreate;
-        Transform unitParent = p1Units;
-        if(player == 1)
+        while (true)
         {
-        }
-        else if (player == 2)
-        {
-            unitParent = p2Units;
-        }
-        while(true)
-        {
-            if(stepToCheck == StepCounter.currentStep)
+            if (stepToCheck == StepCounter.currentStep)
             {
-                InstantiateUnit(unitToCreate, unitParent, posx, posy);
+                poolManager.ActivateUnitFromPool(player, posx, posy, unit);
                 yield break;
             }
             yield return waitForFixedUpdate;
         }
     }
 
-    private void InstantiateUnit(Transform unit, Transform parent, int posx, int posy)
+    /* private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, Transform _unitToCreate)
+     {
+         //Debug.Log("Create Unit!");
+         //Debug.Log(step);
+         int stepToCheck = actionStep + 100;
+
+         Transform unitToCreate = _unitToCreate;
+         Transform unitParent = p1Units;
+         if(player == 1)
+         {
+         }
+         else if (player == 2)
+         {
+             unitParent = p2Units;
+         }
+         while(true)
+         {
+             if(stepToCheck == StepCounter.currentStep)
+             {
+                 InstantiateUnit(unitToCreate, unitParent, posx, posy);
+                 yield break;
+             }
+             yield return waitForFixedUpdate;
+         }
+     }*/
+
+    /*private void InstantiateUnit(Transform unit, Transform parent, int posx, int posy)
     {
         //Debug.Log("Soldier Created!");
 
         createdUnit = Instantiate(unit, parent);
         createdUnit.position = new Vector2(posx, posy);
     }
+    */
+
 }

@@ -5,15 +5,13 @@ using UnityEngine;
 public class Building : RangedUnit
 {
     //[SerializeField]
-    private float buildingRange = 4;
+    private float buildingRange = 5;
     //[SerializeField]
-    private int attackPoints = 12;
+    private int attackPoints = 24;
     [SerializeField]
     Projectile projectile;
 
-
-
-    private WaitForSeconds attackReloadTime;
+    private WaitForFixedUpdate fixUpd;
 
     private bool attack;
 
@@ -30,23 +28,25 @@ public class Building : RangedUnit
         else
             Debug.LogWarning("No tag assigned");
 
-        attackReloadTime = new WaitForSeconds(2);
-        StartCoroutine(ShootProjectile());
-    }
+        fixUpd = new WaitForFixedUpdate();
 
-    protected void FixedUpdate()
-    {
-        StateMachine();
-    }
-    protected override void StateMachine()
-    {
-        
+        StartCoroutine(ShootProjectile());
     }
 
     private IEnumerator ShootProjectile()
     {
         while (true)
         {
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
             GetClosest(enemies);
             if (closestTarget != null)
             {
@@ -59,7 +59,11 @@ public class Building : RangedUnit
                     }
                 }
             }
-            yield return attackReloadTime;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
+            yield return fixUpd;
         }
     }
 }

@@ -37,7 +37,7 @@ public class GoldMine : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject, 0.1f);
+            Destroy(this.gameObject);
         }
     }
 

@@ -21,11 +21,13 @@ public class Miner : MobileUnit
         {
             castle = GameObject.Find("P1_Castle").transform;
             player = 1;
+            poolParent = GameObject.Find("P1_Miner_Pool").transform;
         }
         else if (CompareTag("2"))
         {
             castle = GameObject.Find("P2_Castle").transform;
             player = 2;
+            poolParent = GameObject.Find("P2_Miner_Pool").transform;
         }
         else
         {
@@ -36,17 +38,13 @@ public class Miner : MobileUnit
 
     private void FixedUpdate()
     {
-        if (StepCounter.currentStep % 5 == 0)
+        if (closestTarget == null)
         {
-
-            if (closestTarget == null)
-            {
-                closestTarget = GetClosest(goldMines);
-                los += 1;
-            }
-            else
-                los = initialLos;
+            closestTarget = GetClosest(goldMines);
+            los += 1;
         }
+        else
+            los = initialLos;
         
         StateMachine();
         //Debug.Log(goldMines);
@@ -61,7 +59,7 @@ public class Miner : MobileUnit
             {
                 WalkTo(closestTarget);
 
-                if (Vector2.Distance(transform.position, closestTarget.position) < 1)
+                if (Vector2.Distance(transform.position, closestTarget.position) < 0.5f)
                 {
                     hasGold = true;
                     closestTarget.GetComponent<GoldMine>().BeMined(gatheringRate, int.Parse(tag));
@@ -71,7 +69,7 @@ public class Miner : MobileUnit
             {
                 WalkTo(castle);
 
-                if (Vector2.Distance(transform.position, castle.position) < 1)
+                if (Vector2.Distance(transform.position, castle.position) < 1f)
                 {
                     hasGold = false;
                     if (player == GENERAL.PLAYER)

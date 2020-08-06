@@ -8,14 +8,18 @@ public class Unit : MonoBehaviour
 {
     protected SharedComponents sharedComponents;
 
-    private Slider hpSlider;
-    private Text hpText;
+    public Slider hpSlider;
+    public Text hpText;
 
     [SerializeField]
     int maxHealthPoints;
     int currentHealthPoints;
 
-    private Light2D light2d;
+    protected Transform poolParent;
+
+    protected Transform enemyCastle;
+
+    private UnityEngine.Experimental.Rendering.Universal.Light2D light2d;
 
     [SerializeField]
     protected float los = 3; // LINE OF SIGHT
@@ -51,11 +55,19 @@ public class Unit : MonoBehaviour
             {
                 hpSlider.gameObject.SetActive(true);
                 hpText.gameObject.SetActive(true);
-                Invoke("DesactivateHpSlider", 3);
+                CancelInvoke("DesactivateHpSlider");
+                Invoke("DesactivateHpSlider", 3f);
             }
         }
         else
-            Die();
+            Invoke("Die", 0f);
+    }
+
+    private void Die()
+    {
+        //transform.position = Vector2.zero;
+        transform.parent = poolParent;
+        gameObject.SetActive(false);
     }
 
     private void DesactivateHpSlider()
@@ -64,19 +76,13 @@ public class Unit : MonoBehaviour
         hpText.gameObject.SetActive(false);
     }
 
-    private void Die()
-    {
-        light2d.pointLightInnerRadius = 0;
-        Destroy(this.gameObject, 0.5f);
-    }
-
     protected virtual void InitializeUnit()
     {
         sharedComponents = GetComponent<SharedComponents>();
         hpSlider = GetComponent<SharedComponents>().hpSlider;
         hpText = GetComponent<SharedComponents>().hpText;
         CurrentHealthPoints = MaxHealthPoints;
-        light2d = GetComponent<Light2D>();
+        light2d = GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         if (!CompareTag(GENERAL.PLAYER.ToString())) 
         {
             nonPlayerUnit = true;
@@ -92,13 +98,14 @@ public class Unit : MonoBehaviour
         }
         light2d.pointLightInnerRadius = los - 0.5f;
         light2d.pointLightOuterRadius = los;
-    }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (GetComponent<MobileUnit>() != null)
+        if (CompareTag("1"))
         {
-            transform.position = Vector2.MoveTowards(transform.position, collision.transform.position, -0.01f);
+            enemyCastle = GameObject.Find("P2_Castle").transform;
+        }
+        else if (CompareTag("2"))
+        {
+            enemyCastle = GameObject.Find("P1_Castle").transform;
         }
     }
 }
