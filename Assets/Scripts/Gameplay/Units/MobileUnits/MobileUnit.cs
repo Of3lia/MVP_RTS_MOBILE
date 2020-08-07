@@ -9,12 +9,23 @@ public class MobileUnit : SeekerUnit, IMobile
 
     protected Animator animator;
 
+    private Transform spriteContainer;
+
     //protected RaycastHit2D hit;
     //protected ColliderDistance2D distance;
+    private Vector2 targetPos;
 
     public virtual void WalkTo(Transform target)
     {
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed);
+
+        targetPos = target.position;
+        // Get Angle in Radians
+        float AngleRad = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x);
+        // Get Angle in Degrees
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        // Rotate Object
+        spriteContainer.transform.rotation = Quaternion.Euler(0, 0, AngleDeg - 90);
     }
 
     protected override void InitializeUnit()
@@ -29,13 +40,8 @@ public class MobileUnit : SeekerUnit, IMobile
         {
             Debug.LogWarning("No animator on this object");
         }
-    }
 
-    protected override void Start()
-    {
-        base.Start();
-
-        //StartCoroutine(AvoidUnits());
+        spriteContainer = sharedComponents.spriteContainer;
     }
 
     /*

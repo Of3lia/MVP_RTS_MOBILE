@@ -1,6 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8874873721276535402
+--- !u!58 &1729466927428341288
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153462001848809924}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.08
+--- !u!114 &1309435269203219490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153462001848809924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57635a449d05ba94cacb945f54461eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpSlider: {fileID: 3738317876088805160}
+  hpText: {fileID: 2115778661281920718}
+  spriteContainer: {fileID: 0}
+  p1Units: {fileID: 0}
+  p2Units: {fileID: 0}
+--- !u!114 &5651870157502862561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153462001848809924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 1.5
+  m_PointLightOuterRadius: 2
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &8738499695475306679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,11 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5bfda891dab1947aa3b5bad9cfafa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpSlider: {fileID: 0}
-  hpText: {fileID: 0}
+  hpSlider: {fileID: 3738317876088805160}
+  hpText: {fileID: 2115778661281920718}
   maxHealthPoints: 120
   los: 3
-  speed: 0.05
+  speed: 0.1
   attackPoints: 11
 --- !u!1001 &4253336996981189575
 PrefabInstance:
@@ -25,16 +99,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6359312182158873091, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+    - target: {fileID: 446122812583045495, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
-      propertyPath: m_Name
-      value: Swordsman
-      objectReference: {fileID: 0}
-    - target: {fileID: 6359312182158873091, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d654ad6292019194eb1d9a92767b48df,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1015488981688944590, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -93,22 +163,48 @@ PrefabInstance:
     - target: {fileID: 1015488981688944590, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1015488981688944590, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385018123562088991, guid: 9b79fe63509e33a4997b21857c4f3cc2,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1856804533588403912, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_Text
       value: Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992752782699113129, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_TagString
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4992752782699113129, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Name
+      value: Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384507245737166693, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d654ad6292019194eb1d9a92767b48df,
+        type: 3}
+    - target: {fileID: 6359312182158873091, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Name
+      value: Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359312182158873091, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385018123562088991, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7262727592100652663, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
@@ -120,7 +216,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1577911950594705569, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}
+    - {fileID: 7429846786790429137, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}
+    - {fileID: 319519655455467718, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9b79fe63509e33a4997b21857c4f3cc2, type: 3}
 --- !u!1 &7153462001848809924 stripped
 GameObject:
@@ -128,3 +227,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4253336996981189575}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3738317876088805160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 641709328173317359, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4253336996981189575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2115778661281920718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2763558761214270729, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4253336996981189575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

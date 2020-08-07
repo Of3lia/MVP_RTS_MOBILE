@@ -7,7 +7,7 @@ public class Building : RangedUnit
     //[SerializeField]
     private float buildingRange = 5;
     //[SerializeField]
-    private int attackPoints = 24;
+    private int attackPoints = 12;
     [SerializeField]
     Projectile projectile;
 
@@ -30,7 +30,7 @@ public class Building : RangedUnit
 
         fixUpd = new WaitForFixedUpdate();
 
-        StartCoroutine(ShootProjectile());
+        //StartCoroutine(ShootProjectile());
     }
 
     private IEnumerator ShootProjectile()

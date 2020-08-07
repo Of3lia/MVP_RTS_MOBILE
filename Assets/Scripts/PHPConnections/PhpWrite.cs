@@ -91,7 +91,7 @@ public class PhpWrite : MonoBehaviour
                 creationFlagClone = Instantiate(creationFlag);
                 creationFlagClone.position = new Vector2(
                     Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-                Destroy(creationFlagClone.gameObject, 5);
+                Destroy(creationFlagClone.gameObject, 6);
 
                 GENERAL.GOLD -= GENERAL.UNIT_COST;
 

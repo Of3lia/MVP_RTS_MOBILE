@@ -7,16 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_Name
-      value: P1_Swordsman
-      objectReference: {fileID: 0}
-    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_TagString
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -96,6 +86,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_Name
+      value: P1_Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_TagString
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.59126914
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8689904
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101547534413234542, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_TagString
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd421d516cc7cad4cb1f83fdc12bffa5, type: 3}

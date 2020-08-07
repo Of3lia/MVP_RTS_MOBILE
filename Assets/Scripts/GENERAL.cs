@@ -8,7 +8,9 @@ static class GENERAL
 #if UNITY_EDITOR
     public static string SERVER = "http://192.168.1.131/UNITY_PROJECTS/ClashRoyaleTry/";
 #else
-    public static string SERVER = "https://tutorialbasesdedatos.000webhostapp.com/";
+    public static string SERVER = "http://192.168.1.131/UNITY_PROJECTS/ClashRoyaleTry/";
+
+    //public static string SERVER = "https://tutorialbasesdedatos.000webhostapp.com/";
 #endif
     public static int PLAYER = 1;
     public static int ISREADY = 0;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8359749443577635370
+--- !u!114 &2620271759007981800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24,10 +24,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004899702100222729, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1711fd8ebcf7c9448aa619c076204ad5,
+        type: 3}
     - target: {fileID: 4272438477105591919, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_Name
       value: Miner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839175842550422935, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.2735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.2542275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.2542275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1711fd8ebcf7c9448aa619c076204ad5,
+        type: 3}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.07
       objectReference: {fileID: 0}
     - target: {fileID: 7862631071539962786, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
@@ -87,49 +139,20 @@ PrefabInstance:
     - target: {fileID: 7862631071539962786, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7862631071539962786, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.2735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.2542275
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294391867515850011, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.2542275
-      objectReference: {fileID: 0}
-    - target: {fileID: 5839175842550422935, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8849187849097773732, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_Text
       value: Miner
       objectReference: {fileID: 0}
-    - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4293677240206188147, guid: dd9ad182a80180d478c9faa841268705, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dd9ad182a80180d478c9faa841268705, type: 3}
 --- !u!1 &5504235426155852903 stripped
 GameObject:

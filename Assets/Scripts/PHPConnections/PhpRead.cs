@@ -324,7 +324,7 @@ public class PhpRead : MonoBehaviour
     {
         //Debug.Log("Create Unit!");
         //Debug.Log(step);
-        int stepToCheck = actionStep + 100;
+        int stepToCheck = actionStep + 60;
 
         while (true)
         {

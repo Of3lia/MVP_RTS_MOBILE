@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3517442255866771947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.026925687, y: 0.37175822, z: 0.32637194}
+  m_LocalScale: {x: 0.2, y: 3, z: 0}
   m_Children: []
   m_Father: {fileID: 8269828436503248126}
   m_RootOrder: 1
@@ -46,6 +46,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 0.5
---- !u!114 &-2715498979612289131
+--- !u!114 &8818680988117085554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72d4c4a8fa0ce544b6fffb5f3449db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 1200
+  hpSlider: {fileID: 0}
+  hpText: {fileID: 0}
+  maxHealthPoints: 2800
   los: 6
   projectile: {fileID: 8923805919908750383}
 --- !u!1001 &8637270311152902955
@@ -116,25 +119,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6002884704812435992, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+    - target: {fileID: 325497653619902598, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
-      propertyPath: m_Name
-      value: Castle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6002884704812435992, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
-        type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Radius
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 367582887089332181, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06955518
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 367582887089332181, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.015965
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 367582887089332181, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
@@ -184,17 +182,94 @@ PrefabInstance:
     - target: {fileID: 367582887089332181, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 367582887089332181, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 954381850626339180, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954381850626339180, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c450d8c7b7b93f42ac4ccfd7096eab0,
+        type: 3}
+    - target: {fileID: 1354148125761306323, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Text
+      value: Castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679008801844829101, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679008801844829101, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735477450252885886, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c450d8c7b7b93f42ac4ccfd7096eab0,
+        type: 3}
+    - target: {fileID: 4735477450252885886, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735477450252885886, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735477450252885886, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002884704812435992, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_Name
+      value: Castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002884704812435992, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205172335309874774, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205172335309874774, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205172335309874774, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205172335309874774, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205172335309874774, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 8053618293338685036, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
         type: 3}
@@ -205,11 +280,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1354148125761306323, guid: a3b278d946c21ce4e9d2d3ffb8972bf9,
-        type: 3}
-      propertyPath: m_Text
-      value: Castle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3b278d946c21ce4e9d2d3ffb8972bf9, type: 3}

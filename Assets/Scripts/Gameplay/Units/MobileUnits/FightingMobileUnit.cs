@@ -42,9 +42,6 @@ public class FightingMobileUnit : MobileUnit
     private void FixedUpdate()
     {
         StateMachine();
-        Debug.Log(enemyCastle);
-        Debug.Log(attack);
-        Debug.Log(closestTarget);
     }
 
     protected override void StateMachine()
@@ -72,17 +69,18 @@ public class FightingMobileUnit : MobileUnit
 
     private void WalkForward()
     {
-        if (transform.position.y * direction <= mapLimit * direction)
-            transform.Translate(new Vector2(0, speed * direction));
+        //if (transform.position.y /* * direction */ <= mapLimit /* * direction*/)
+        if (transform.localPosition.y * direction <= mapLimit * direction)
+            transform.Translate(new Vector2(0, speed /* * direction */));
         else
         {
             if(transform.position.x > 0)
             {   // Go to the left
-                transform.Translate(new Vector2(-speed, 0));
+                transform.Translate(new Vector2(-speed *direction, 0));
             }
             else
             {   // Go to the right
-                transform.Translate(new Vector2(speed, 0));
+                transform.Translate(new Vector2(speed *direction, 0));
             }
         }
     }
@@ -98,7 +96,7 @@ public class FightingMobileUnit : MobileUnit
         }
         */
     }
-    
+
     private IEnumerator AttackSystem()
     {
         while (true)

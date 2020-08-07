@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class GoldMine : MonoBehaviour
 {
+    private SharedComponents sharedComponents;
     private Slider hpSlider;
     private Text hpText;
-    private SharedComponents sharedComponents;
-    private int remainingGold = 200;
+
+    private int remainingGold = 600;
 
     private void Awake()
     {
@@ -43,10 +44,10 @@ public class GoldMine : MonoBehaviour
 
     private void ShowResourcesLeft()
     {
-        CancelInvoke("HideResourcesLeft");
+        //CancelInvoke("HideResourcesLeft");
         hpSlider.gameObject.SetActive(true);
         hpText.gameObject.SetActive(true);
-        Invoke("HideResourcesLeft", 1);
+        //Invoke("HideResourcesLeft", 1);
     }
 
     private void HideResourcesLeft()

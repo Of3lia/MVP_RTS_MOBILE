@@ -8,8 +8,11 @@ public class SharedComponents : MonoBehaviour
     public Slider hpSlider;
     public Text hpText;
 
+    public Transform spriteContainer;
+
     public Transform p1Units;
     public Transform p2Units;
+
 
     private void Awake()
     {

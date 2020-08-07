@@ -8,6 +8,9 @@ public class Unit : MonoBehaviour
 {
     protected SharedComponents sharedComponents;
 
+    public static int classId;
+    private int unitId;
+
     public Slider hpSlider;
     public Text hpText;
 
@@ -55,18 +58,18 @@ public class Unit : MonoBehaviour
             {
                 hpSlider.gameObject.SetActive(true);
                 hpText.gameObject.SetActive(true);
-                CancelInvoke("DesactivateHpSlider");
-                Invoke("DesactivateHpSlider", 3f);
+                //CancelInvoke("DesactivateHpSlider");
+                //Invoke("DesactivateHpSlider", 3f);
             }
         }
         else
-            Invoke("Die", 0f);
+            Destroy(this.gameObject);
     }
 
     private void Die()
     {
-        //transform.position = Vector2.zero;
         transform.parent = poolParent;
+        transform.position = Vector2.zero;
         gameObject.SetActive(false);
     }
 
@@ -78,6 +81,9 @@ public class Unit : MonoBehaviour
 
     protected virtual void InitializeUnit()
     {
+        unitId = classId;
+        classId++;
+
         sharedComponents = GetComponent<SharedComponents>();
         hpSlider = GetComponent<SharedComponents>().hpSlider;
         hpText = GetComponent<SharedComponents>().hpText;
@@ -90,11 +96,11 @@ public class Unit : MonoBehaviour
 
         if (nonPlayerUnit)
         {
-            light2d.enabled = false; hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false);
+            light2d.enabled = false; //hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false);
         }
         else
         {
-            Invoke("DesactivateHpSlider", 3);
+            //Invoke("DesactivateHpSlider", 3);
         }
         light2d.pointLightInnerRadius = los - 0.5f;
         light2d.pointLightOuterRadius = los;
@@ -107,5 +113,10 @@ public class Unit : MonoBehaviour
         {
             enemyCastle = GameObject.Find("P1_Castle").transform;
         }
+    }
+
+    public (int unitId, float posx, float posy, float rotationZ) GetSyncData()
+    {
+        return (unitId, transform.position.x, transform.position.y, transform.rotation.z);
     }
 }
