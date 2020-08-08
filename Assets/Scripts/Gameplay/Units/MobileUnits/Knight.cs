@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Castle : Building
+class Knight : FightingMobileUnit
 {
     protected override void InitializeUnit()
     {
@@ -10,11 +10,11 @@ public class Castle : Building
 
         if (CompareTag("1"))
         {
-            poolParent = GameObject.Find("P1_Castle_Pool").transform;
+            poolParent = GameObject.Find("P1_Knight_Pool").transform;
         }
         else if (CompareTag("2"))
         {
-            poolParent = GameObject.Find("P2_Castle_Pool").transform;
+            poolParent = GameObject.Find("P1_Knight_Pool").transform;
         }
         else
         {

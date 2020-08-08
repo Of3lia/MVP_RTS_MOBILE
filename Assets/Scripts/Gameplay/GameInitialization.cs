@@ -14,17 +14,18 @@ public class GameInitialization : MonoBehaviour
     GameObject p2Camera;
 
     [SerializeField]
-    Transform p1Units;
-    [SerializeField]
-    Transform p2Units;
-
-    [SerializeField]
     Transform p1UnitsPool;
     [SerializeField]
     Transform p2UnitsPool;
 
+    Transform p1Units;
+    Transform p2Units;
+
     void Start()
     {
+        p1Units = GetComponent<SharedFields>().p1Units;
+        p2Units = GetComponent<SharedFields>().p2Units;
+
         GENERAL.goldNumText = goldNumText;
         GENERAL.GOLD = 5000;
 
@@ -42,7 +43,6 @@ public class GameInitialization : MonoBehaviour
 
             RotateTextOfUnitsInGameScene(p1Units);
             RotateTextOfUnitsInPool(p1UnitsPool);
-            RotateTextOfUnitsInPool(p2UnitsPool);
         }
     }
 
@@ -67,9 +67,7 @@ public class GameInitialization : MonoBehaviour
         {
             for (int j = 0; j < poolsContainer.GetChild(i).childCount; j++)
             {
-                poolsContainer.GetChild(i).GetChild(j).gameObject.SetActive(true);
                 poolsContainer.GetChild(i).GetChild(j).GetComponent<SharedComponents>().hpSlider.transform.parent.Rotate(0,0,180);
-                poolsContainer.GetChild(i).GetChild(j).gameObject.SetActive(false);
             }
         }
     }

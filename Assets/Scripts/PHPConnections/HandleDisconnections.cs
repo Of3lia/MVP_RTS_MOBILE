@@ -10,7 +10,9 @@ public class HandleDisconnections : MonoBehaviour
 
     private int waitSecondsForDisconnection = 4;
 
-    private int stepsToWaitBeforeLostConnection = 80;
+
+    // Esta variable va a depender del framerate, si es cambiado, hay que actualizarla o habran problemas de sync
+    private int stepsToWaitBeforeLostConnection = 40;
 
     private WaitForSecondsRealtime waitTime;
     private WaitForSecondsRealtime waitTime2;
@@ -27,7 +29,7 @@ public class HandleDisconnections : MonoBehaviour
 
     private void Awake()
     {
-        Application.targetFrameRate = 20;
+        //Application.targetFrameRate = 20;
         Time.timeScale = 0;
         //GENERAL.TESTING_MODE = developingMode;
 

@@ -288,6 +288,27 @@ public class PhpRead : MonoBehaviour
                                         }
                                         break;
 
+                                    case "CreateKnight":
+                                        if (downloadedText[i] != ';')
+                                        {
+                                            strings += downloadedText[i];
+                                        }
+                                        else
+                                        {
+                                            //Transform u;
+                                            //if (actionPlayer == "1") { u = p1Swordsman; } else { u = p2Swordsman; }
+                                            //Debug.Log($"actionStep{actionStep}\n actionplayer{actionPlayer}\n posx{posx} posy {posy}");
+                                            StartCoroutine(CreateUnit(int.Parse(actionStep), int.Parse(actionPlayer), int.Parse(posx), int.Parse(posy), UnitsPoolManager.UnitsPool.Knight));
+
+                                            posx = "";
+                                            posy = "";
+                                            actionStep = "";
+                                            actionPlayer = "";
+                                            strings = "";
+                                            downloadedStrings = "";
+                                        }
+                                        break;
+
                                     case "EmptyAction":
                                         if (downloadedText[i] != ';')
                                         {

@@ -26,6 +26,7 @@ public class MobileUnit : SeekerUnit, IMobile
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
         // Rotate Object
         spriteContainer.transform.rotation = Quaternion.Euler(0, 0, AngleDeg - 90);
+
     }
 
     protected override void InitializeUnit()
@@ -42,8 +43,18 @@ public class MobileUnit : SeekerUnit, IMobile
         }
 
         spriteContainer = sharedComponents.spriteContainer;
+
+        StartCoroutine(CorrectPosition());
     }
 
+    private IEnumerator CorrectPosition()
+    {
+        while (true)
+        {
+            transform.position = new Vector2(Mathf.Round(transform.position.x * 100) / 100, Mathf.Round(transform.position.y * 100) / 100);
+            yield return new WaitForFixedUpdate();
+        }
+    }
     /*
     private IEnumerator AvoidUnits()
     {

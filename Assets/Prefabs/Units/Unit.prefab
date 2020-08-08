@@ -263,6 +263,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sliders
       objectReference: {fileID: 0}
+    - target: {fileID: 4268826523625858179, guid: 433e359ace9e26148b3f65ab964f24bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7047198331701633845, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -371,22 +376,22 @@ PrefabInstance:
     - target: {fileID: 7047198331701633845, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.008
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 7047198331701633845, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.008
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 7923367423160023823, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7923367423160023823, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 433e359ace9e26148b3f65ab964f24bc, type: 3}

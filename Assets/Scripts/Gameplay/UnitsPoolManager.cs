@@ -12,63 +12,88 @@ public class UnitsPoolManager : MonoBehaviour
     Transform p1SwordsmanPool;
     [SerializeField]
     Transform p2SwordsmanPool;
+    [SerializeField]
+    Transform p1KnightPool;
+    [SerializeField]
+    Transform p2KnightPool;
 
-    Transform unitTocreate;
+    Transform unitToActivate;
+    Transform unitPool;
 
     [SerializeField]
     Transform p1UnitsContainer;
     [SerializeField]
     Transform p2UnitsContainer;
 
-    Transform unitParent;
-
-    public enum UnitsPool { Miner, Swordsman }
+    //Transform unitParent;
+    public enum UnitsPool { Miner, Swordsman, Knight }
 
     public void ActivateUnitFromPool(int player, int posx, int posy, UnitsPool kind)
     {
-        unitParent = p1UnitsContainer;
+        //unitParent = p1UnitsContainer;
         if(player == 2)
         {
-            unitParent = p2UnitsContainer;
+            //unitParent = p2UnitsContainer;
         }
         switch (kind)
         {
             case UnitsPool.Miner:
                 if (player == 1)
                 {
-                    unitTocreate = p1MinersPool.GetChild(0);
+                    unitPool = p1MinersPool;
                 }
                 else
                 {
-                    unitTocreate = p2MinersPool.GetChild(0);
+                    unitPool = p2MinersPool;
                 }
                 break;
 
             case UnitsPool.Swordsman:
                 if (player == 1)
                 {
-                    unitTocreate = p1SwordsmanPool.GetChild(0);
+                    unitPool = p1SwordsmanPool;
                 }
                 else
                 {
-                    unitTocreate = p2SwordsmanPool.GetChild(0);
+                    unitPool = p2SwordsmanPool;
+                }
+                break;
+
+            case UnitsPool.Knight:
+                if(player == 1)
+                {
+                    unitPool = p1KnightPool;
+                }
+                else
+                {
+                    unitPool = p2KnightPool;
                 }
                 break;
         }
-        if(unitTocreate != null)
-        {
-            // Create Unit
 
-            unitTocreate.transform.position = new Vector2(posx, posy);
-            unitTocreate.transform.parent = unitParent;
-            unitTocreate.gameObject.SetActive(true);
+        if (unitPool.childCount > 0)
+        {
+            unitToActivate = unitPool.GetChild(0);
         }
         else
         {
             // "You cant create more units"
 
             Debug.Log("Cant create this unit");
+
+            return;
         }
+
+        if(unitToActivate != null)
+        {
+            // Create Unit
+
+            unitToActivate.GetComponent<Unit>().ActivateUnit(posx, posy);
+
+            //unitTocreate.transform.parent = unitParent;
+            //unitTocreate.gameObject.SetActive(true);
+        }
+
     }
 
 }

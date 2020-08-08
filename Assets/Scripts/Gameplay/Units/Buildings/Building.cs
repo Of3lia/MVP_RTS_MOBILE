@@ -30,7 +30,7 @@ public class Building : RangedUnit
 
         fixUpd = new WaitForFixedUpdate();
 
-        //StartCoroutine(ShootProjectile());
+        StartCoroutine(ShootProjectile());
     }
 
     private IEnumerator ShootProjectile()

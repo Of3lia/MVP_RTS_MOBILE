@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
 using UnityEngine.UI;
 
-public class Unit : MonoBehaviour
+public class Unit : SincronizableObject
 {
     protected SharedComponents sharedComponents;
 
-    public static int classId;
     private int unitId;
 
     public Slider hpSlider;
@@ -19,6 +18,8 @@ public class Unit : MonoBehaviour
     int currentHealthPoints;
 
     protected Transform poolParent;
+
+    protected Transform inGameParent;
 
     protected Transform enemyCastle;
 
@@ -41,6 +42,31 @@ public class Unit : MonoBehaviour
         get => maxHealthPoints; 
         set { maxHealthPoints = value; hpSlider.maxValue = value; hpText.text = value.ToString(); }
     }
+    public int UnitId
+    {
+        get { return unitId; }
+        set { unitId = value; }
+    }
+   /* private void Update()
+    {
+        if (this.enabled && this.GetComponent<Swordsman>())
+        {
+            Debug.Log(GetSyncData());
+        }
+    }
+   */
+
+    private void Awake()
+    {
+        if (CompareTag("1"))
+        {
+            inGameParent = GameObject.Find("P1_Units").transform;
+        }
+        else if (CompareTag("2"))
+        {
+            inGameParent = GameObject.Find("P2_Units").transform;
+        }
+    }
 
     protected virtual void Start()
     {
@@ -49,7 +75,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void StateMachine() { }
     
-    public void TakeDamage(int dmg)
+    public virtual void TakeDamage(int dmg)
     {
         if (CurrentHealthPoints > dmg)
         {
@@ -58,19 +84,12 @@ public class Unit : MonoBehaviour
             {
                 hpSlider.gameObject.SetActive(true);
                 hpText.gameObject.SetActive(true);
-                //CancelInvoke("DesactivateHpSlider");
-                //Invoke("DesactivateHpSlider", 3f);
+                CancelInvoke("DesactivateHpSlider");
+                Invoke("DesactivateHpSlider", 3f);
             }
         }
         else
-            Destroy(this.gameObject);
-    }
-
-    private void Die()
-    {
-        transform.parent = poolParent;
-        transform.position = Vector2.zero;
-        gameObject.SetActive(false);
+            DesactivateUnit();
     }
 
     private void DesactivateHpSlider()
@@ -81,9 +100,6 @@ public class Unit : MonoBehaviour
 
     protected virtual void InitializeUnit()
     {
-        unitId = classId;
-        classId++;
-
         sharedComponents = GetComponent<SharedComponents>();
         hpSlider = GetComponent<SharedComponents>().hpSlider;
         hpText = GetComponent<SharedComponents>().hpText;
@@ -96,11 +112,11 @@ public class Unit : MonoBehaviour
 
         if (nonPlayerUnit)
         {
-            light2d.enabled = false; //hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false);
+            light2d.enabled = false; hpText.gameObject.SetActive(false); hpSlider.gameObject.SetActive(false);
         }
         else
         {
-            //Invoke("DesactivateHpSlider", 3);
+            Invoke("DesactivateHpSlider", 3);
         }
         light2d.pointLightInnerRadius = los - 0.5f;
         light2d.pointLightOuterRadius = los;
@@ -115,8 +131,24 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public (int unitId, float posx, float posy, float rotationZ) GetSyncData()
+    public void ActivateUnit(float posx, float posy)
     {
-        return (unitId, transform.position.x, transform.position.y, transform.rotation.z);
+        this.enabled = true;
+        currentHealthPoints = maxHealthPoints;
+        transform.parent = inGameParent;
+        transform.position = new Vector2(posx, posy);
+        //Debug.Log(inGameParent);
+    }
+    private void DesactivateUnit()
+    {
+        transform.parent = poolParent;
+        transform.localPosition = Vector2.zero;
+        this.enabled = false;
+    }
+
+    public string GetSyncData()
+    {
+        //return $"id{unitId};posx{transform.position.x};posy{transform.position.y};rotationz{transform.rotation.z};hp{currentHealthPoints};";
+        return ((float)Mathf.Round( transform.position.x * 100) / 100).ToString();
     }
 }

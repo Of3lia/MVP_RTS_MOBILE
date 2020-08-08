@@ -47,7 +47,7 @@ public class PhpWrite : MonoBehaviour
         StartCoroutine(WritePhp());
     }
 
-    private void Update()
+    private void OnGUI()
     {
         ExecuteMethod(inputToCheck);
     }

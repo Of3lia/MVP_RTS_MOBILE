@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5124339372866686764
+--- !u!1001 &504204179362928306
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -10.312157
       objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.8710861
       objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
@@ -62,59 +62,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4410731727968977584, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.25743148
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410731727968977584, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.40072852
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410731727968977584, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.8396226
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903040992107122096, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903040992107122096, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_Name
       value: P1_Swordsman
       objectReference: {fileID: 0}
-    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_TagString
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.59126914
+      value: 0.6745283
       objectReference: {fileID: 0}
     - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.8689904
+      value: 0.8196913
       objectReference: {fileID: 0}
     - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.9716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 9101547534413234542, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
-        type: 3}
-      propertyPath: m_TagString
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

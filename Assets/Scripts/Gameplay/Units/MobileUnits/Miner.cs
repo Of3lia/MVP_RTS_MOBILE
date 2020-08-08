@@ -11,6 +11,7 @@ public class Miner : MobileUnit
     private int gatheringRate = 7;
     private int player;
     private float initialLos;
+
     protected override void InitializeUnit()
     {
         base.InitializeUnit();
