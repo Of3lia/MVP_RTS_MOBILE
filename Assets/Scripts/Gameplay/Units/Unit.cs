@@ -17,6 +17,8 @@ public class Unit : SincronizableObject
     int maxHealthPoints;
     int currentHealthPoints;
 
+    protected WaitForFixedUpdate waitFrame;
+
     protected Transform poolParent;
 
     protected Transform inGameParent;
@@ -27,6 +29,8 @@ public class Unit : SincronizableObject
 
     [SerializeField]
     protected float los = 3; // LINE OF SIGHT
+
+    protected float radius = 0.5f;
 
     protected bool nonPlayerUnit;
 
@@ -56,7 +60,7 @@ public class Unit : SincronizableObject
     }
    */
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (CompareTag("1"))
         {
@@ -66,24 +70,30 @@ public class Unit : SincronizableObject
         {
             inGameParent = GameObject.Find("P2_Units").transform;
         }
+        //transform.position = new Vector2(Mathf.Round(transform.position.x * 100) / 100, Mathf.Round(transform.position.y * 100) / 100);
+
+        waitFrame = new WaitForFixedUpdate();
     }
 
     protected virtual void Start()
     {
         InitializeUnit();
+
+        StartCoroutine(StateMachine());
     }
 
-    protected virtual void StateMachine() { }
+    protected virtual IEnumerator StateMachine() { yield return null;  }
     
     public virtual void TakeDamage(int dmg)
     {
         if (CurrentHealthPoints > dmg)
         {
+            hpSlider.gameObject.SetActive(true);
+            hpText.gameObject.SetActive(true);
             CurrentHealthPoints -= dmg;
+            
             if (!hpSlider.gameObject.activeSelf)
             {
-                hpSlider.gameObject.SetActive(true);
-                hpText.gameObject.SetActive(true);
                 CancelInvoke("DesactivateHpSlider");
                 Invoke("DesactivateHpSlider", 3f);
             }
@@ -103,6 +113,7 @@ public class Unit : SincronizableObject
         sharedComponents = GetComponent<SharedComponents>();
         hpSlider = GetComponent<SharedComponents>().hpSlider;
         hpText = GetComponent<SharedComponents>().hpText;
+        MaxHealthPoints = MaxHealthPoints;
         CurrentHealthPoints = MaxHealthPoints;
         light2d = GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
         if (!CompareTag(GENERAL.PLAYER.ToString())) 

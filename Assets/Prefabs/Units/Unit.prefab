@@ -170,6 +170,8 @@ GameObject:
   - component: {fileID: 2682661947559857700}
   - component: {fileID: 2305165965898331717}
   - component: {fileID: 1381803956388530780}
+  - component: {fileID: 3784919363343407410}
+  - component: {fileID: 7694919843137989435}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -251,6 +253,43 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!58 &3784919363343407410
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317541265105427433}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.17
+--- !u!50 &7694919843137989435
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317541265105427433}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &2455051101727839378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 4268826523625858179, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7047198331701633845, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
@@ -386,12 +425,12 @@ PrefabInstance:
     - target: {fileID: 7923367423160023823, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7923367423160023823, guid: 433e359ace9e26148b3f65ab964f24bc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 433e359ace9e26148b3f65ab964f24bc, type: 3}

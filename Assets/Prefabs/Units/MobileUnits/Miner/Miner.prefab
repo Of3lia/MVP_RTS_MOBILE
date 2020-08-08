@@ -27,11 +27,21 @@ PrefabInstance:
     - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 558574824761606683, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 623602285063255719, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072875008977197360, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3004899702100222729, guid: dd9ad182a80180d478c9faa841268705,
@@ -44,6 +54,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Miner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587573879480373383, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4911597864226112525, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
@@ -58,7 +73,12 @@ PrefabInstance:
     - target: {fileID: 5839175842550422935, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912188749397582491, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6917113821615919085, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
@@ -161,10 +181,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8312097010602626869, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8849187849097773732, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_Text
       value: Miner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9171687261842036708, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4293677240206188147, guid: dd9ad182a80180d478c9faa841268705, type: 3}

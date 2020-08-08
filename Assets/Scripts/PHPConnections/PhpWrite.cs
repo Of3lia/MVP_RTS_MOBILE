@@ -47,7 +47,7 @@ public class PhpWrite : MonoBehaviour
         StartCoroutine(WritePhp());
     }
 
-    private void OnGUI()
+    private void Update()
     {
         ExecuteMethod(inputToCheck);
     }
@@ -60,7 +60,7 @@ public class PhpWrite : MonoBehaviour
     // This Method is for testing in unity editor
     private void CheckForClick()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
@@ -71,7 +71,7 @@ public class PhpWrite : MonoBehaviour
 
     private void CheckForTouch()
     {
-        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
         {
             if (!EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
                 CreateSelectedCard_Click();

@@ -16,8 +16,6 @@ public class FightingMobileUnit : MobileUnit
 
     bool attack;
 
-    WaitForFixedUpdate waitFrame;
-
     protected override void InitializeUnit()
     {
         base.InitializeUnit();
@@ -34,53 +32,55 @@ public class FightingMobileUnit : MobileUnit
             Debug.LogWarning("No tag assigned");
 
         //creationFrame = StepCounter.currentStep;
-        waitFrame = new WaitForFixedUpdate();
 
         StartCoroutine(AttackSystem());
     }
 
-    private void FixedUpdate()
+    protected override IEnumerator StateMachine()
     {
-        StateMachine();
-    }
-
-    protected override void StateMachine()
-    {
-        if (enemyCastle != null)
+        while (this.enabled && GameMenu.GAME_STARTED)
         {
-            if (!attack)
+            if (enemyCastle != null)
             {
-                if (closestTarget != null)
+                if (!attack)
                 {
-                    if (Vector2.Distance(transform.position, closestTarget.position) > 1f)
-                        WalkTo(closestTarget);
+                    if (closestTarget != null)
+                    {
+                        if (!GetComponent<Collider2D>().IsTouching(closestTarget.GetComponent<Collider2D>()))
+                            WalkTo(closestTarget);
+                        else
+                            attack = true;
+                    }
                     else
-                        attack = true;
+                        WalkForward();
                 }
-                else
-                    WalkForward();
+                else if (closestTarget == null || !closestTarget.gameObject.activeSelf)
+                {
+                    attack = false;
+                }
+
             }
-            else if (closestTarget == null || !closestTarget.gameObject.activeSelf)
-            {
-                attack = false;
-            }
+            yield return waitFrame;
         }
     }
 
-    private void WalkForward()
+        private void WalkForward()
     {
         //if (transform.position.y /* * direction */ <= mapLimit /* * direction*/)
         if (transform.localPosition.y * direction <= mapLimit * direction)
+        {
             transform.Translate(new Vector2(0, speed /* * direction */));
+            spriteContainer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
         else
         {
-            if(transform.position.x > 0)
+            if (transform.position.x > 0)
             {   // Go to the left
-                transform.Translate(new Vector2(-speed *direction, 0));
+                transform.Translate(new Vector2(-speed * direction, 0));
             }
             else
             {   // Go to the right
-                transform.Translate(new Vector2(speed *direction, 0));
+                transform.Translate(new Vector2(speed * direction, 0));
             }
         }
     }
@@ -99,7 +99,7 @@ public class FightingMobileUnit : MobileUnit
 
     private IEnumerator AttackSystem()
     {
-        while (true)
+        while (this.enabled && GameMenu.GAME_STARTED)
         {
             GetClosest(enemies);
 
@@ -107,7 +107,7 @@ public class FightingMobileUnit : MobileUnit
             {
                 if (closestTarget != null)
                 {
-                    if(Vector2.Distance(transform.position, closestTarget.position) <= 1f)
+                    if(GetComponent<Collider2D>().IsTouching(closestTarget.GetComponent<Collider2D>()))
                     {
                         int lastStep = StepCounter.currentStep;
 

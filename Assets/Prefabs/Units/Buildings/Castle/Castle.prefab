@@ -112,6 +112,31 @@ MonoBehaviour:
   maxHealthPoints: 2800
   los: 6
   projectile: {fileID: 8923805919908750383}
+--- !u!68 &8373393929392495289
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2635512056294631731}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.45063135, y: 0.00000028560555}
+  - {x: -0.47748893, y: 0.010907339}
+  - {x: -0.49446693, y: 0.99048764}
+  - {x: -1.5038431, y: 1.0107101}
+  - {x: -1.4983683, y: -0.94544786}
+  - {x: 1.4444727, y: -0.88581526}
+  - {x: 1.3685571, y: 0.93152136}
+  - {x: 0.49983367, y: 0.93386763}
+  - {x: 0.4567895, y: 0.021604856}
 --- !u!1001 &8637270311152902955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,7 +306,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1487855253350992067, guid: a3b278d946c21ce4e9d2d3ffb8972bf9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3b278d946c21ce4e9d2d3ffb8972bf9, type: 3}
 --- !u!1 &2635512056294631731 stripped
 GameObject:

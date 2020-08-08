@@ -7,11 +7,9 @@ public class Building : RangedUnit
     //[SerializeField]
     private float buildingRange = 5;
     //[SerializeField]
-    private int attackPoints = 12;
+    private int attackPoints = 25;
     [SerializeField]
     Projectile projectile;
-
-    private WaitForFixedUpdate fixUpd;
 
     private bool attack;
 
@@ -28,8 +26,6 @@ public class Building : RangedUnit
         else
             Debug.LogWarning("No tag assigned");
 
-        fixUpd = new WaitForFixedUpdate();
-
         StartCoroutine(ShootProjectile());
     }
 
@@ -37,16 +33,16 @@ public class Building : RangedUnit
     {
         while (true)
         {
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
             GetClosest(enemies);
             if (closestTarget != null)
             {
@@ -59,11 +55,11 @@ public class Building : RangedUnit
                     }
                 }
             }
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
-            yield return fixUpd;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
+            yield return waitFrame;
         }
     }
 }

@@ -101,6 +101,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Swordsman
       objectReference: {fileID: 0}
+    - target: {fileID: 2282123319051489496, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2820256843181449313, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_LocalRotation.z
@@ -150,8 +155,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b5b913d0776efff498296db809a2981c,
+      objectReference: {fileID: 21300000, guid: c5ca03d5e24674f4b9455edcb7e9895f,
         type: 3}
+    - target: {fileID: 5384507245737166693, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384507245737166693, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384507245737166693, guid: 9b79fe63509e33a4997b21857c4f3cc2,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6359312182158873091, guid: 9b79fe63509e33a4997b21857c4f3cc2,
         type: 3}
       propertyPath: m_Name

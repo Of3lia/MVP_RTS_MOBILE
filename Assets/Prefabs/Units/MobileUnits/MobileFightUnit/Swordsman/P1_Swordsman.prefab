@@ -7,15 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2028154607710423974, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028154607710423974, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028154607710423974, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.312157
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8710861
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3823941666842323977, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}
@@ -66,6 +81,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P1_Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153462001848809924, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
+        type: 3}
+      propertyPath: m_TagString
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8196410281123474594, guid: dd421d516cc7cad4cb1f83fdc12bffa5,
         type: 3}

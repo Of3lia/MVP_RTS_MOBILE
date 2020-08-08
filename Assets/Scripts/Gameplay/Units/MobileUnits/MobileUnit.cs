@@ -9,7 +9,7 @@ public class MobileUnit : SeekerUnit, IMobile
 
     protected Animator animator;
 
-    private Transform spriteContainer;
+    protected Transform spriteContainer;
 
     //protected RaycastHit2D hit;
     //protected ColliderDistance2D distance;
@@ -17,16 +17,18 @@ public class MobileUnit : SeekerUnit, IMobile
 
     public virtual void WalkTo(Transform target)
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.position, speed);
+        if (target.GetComponent<Collider2D>())
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Physics2D.ClosestPoint(transform.position, target.GetComponent<Collider2D>()), speed);
 
-        targetPos = target.position;
-        // Get Angle in Radians
-        float AngleRad = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x);
-        // Get Angle in Degrees
-        float AngleDeg = (180 / Mathf.PI) * AngleRad;
-        // Rotate Object
-        spriteContainer.transform.rotation = Quaternion.Euler(0, 0, AngleDeg - 90);
-
+            targetPos = target.position;
+            // Get Angle in Radians
+            float AngleRad = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x);
+            // Get Angle in Degrees
+            float AngleDeg = (180 / Mathf.PI) * AngleRad;
+            // Rotate Object
+            spriteContainer.transform.rotation = Quaternion.Euler(0, 0, AngleDeg - 90);
+        }
     }
 
     protected override void InitializeUnit()
@@ -47,9 +49,10 @@ public class MobileUnit : SeekerUnit, IMobile
         StartCoroutine(CorrectPosition());
     }
 
+    Transform closestAlly;
     private IEnumerator CorrectPosition()
     {
-        while (true)
+        while (this.enabled && GameMenu.GAME_STARTED)
         {
             transform.position = new Vector2(Mathf.Round(transform.position.x * 100) / 100, Mathf.Round(transform.position.y * 100) / 100);
             yield return new WaitForFixedUpdate();
