@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class HandleDisconnections : MonoBehaviour
 {
     [SerializeField]
     private GameObject reconectingPanel;
 
-    private int waitSecondsForDisconnection = 4;
+    //private int waitSecondsForDisconnection = 4;
 
 
     // Esta variable va a depender del framerate, si es cambiado, hay que actualizarla o habran problemas de sync
-    private int stepsToWaitBeforeLostConnection = 40;
+    private int stepsToWaitBeforeLostConnection = 30;
 
     private WaitForSecondsRealtime waitTime;
     private WaitForSecondsRealtime waitTime2;
@@ -34,8 +35,13 @@ public class HandleDisconnections : MonoBehaviour
         //GENERAL.TESTING_MODE = developingMode;
 
         #if UNITY_EDITOR
-            developingMode = true;
+            //developingMode = true;
         # endif
+
+        if(SceneManager.GetActiveScene().buildIndex == GENERAL.Scene_TestScene)
+        {
+            developingMode = true;
+        }
     }
     private void Start()
     {

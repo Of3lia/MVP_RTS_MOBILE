@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Building : RangedUnit
 {
-    //[SerializeField]
+    [SerializeField]
     private float buildingRange = 5;
-    //[SerializeField]
+    [SerializeField]
     private int attackPoints = 25;
     [SerializeField]
     Projectile projectile;

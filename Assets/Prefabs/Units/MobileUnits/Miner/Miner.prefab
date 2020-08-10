@@ -50,6 +50,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 1711fd8ebcf7c9448aa619c076204ad5,
         type: 3}
+    - target: {fileID: 3004899702100222729, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.44166666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004899702100222729, guid: dd9ad182a80180d478c9faa841268705,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25583333
+      objectReference: {fileID: 0}
     - target: {fileID: 4272438477105591919, guid: dd9ad182a80180d478c9faa841268705,
         type: 3}
       propertyPath: m_Name

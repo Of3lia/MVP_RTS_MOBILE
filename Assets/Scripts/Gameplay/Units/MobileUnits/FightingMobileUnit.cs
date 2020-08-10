@@ -38,51 +38,58 @@ public class FightingMobileUnit : MobileUnit
 
     protected override IEnumerator StateMachine()
     {
-        while (this.enabled && GameMenu.GAME_STARTED)
+        while (true)
         {
-            if (enemyCastle != null)
+            while (this.enabled && GameMenu.GAME_STARTED)
             {
-                if (!attack)
+                if (enemyCastle != null)
                 {
-                    if (closestTarget != null)
+                    if (!attack)
                     {
-                        if (!GetComponent<Collider2D>().IsTouching(closestTarget.GetComponent<Collider2D>()))
-                            WalkTo(closestTarget);
+                        if (closestTarget != null)
+                        {
+                            if ((Mathf.Round(Vector2.Distance(transform.position, closestTarget.position) * 10) / 10) > radius + closestTarget.GetComponent<Unit>().radius)
+                                WalkTo(closestTarget);
+                            else
+                                attack = true;
+                        }
                         else
-                            attack = true;
+                            WalkForward();
                     }
-                    else
-                        WalkForward();
-                }
-                else if (closestTarget == null || !closestTarget.gameObject.activeSelf)
-                {
-                    attack = false;
-                }
+                    else if (closestTarget == null || !closestTarget.gameObject.activeSelf)
+                    {
+                        attack = false;
+                    }
 
+                }
+                yield return waitFrame;
             }
             yield return waitFrame;
         }
     }
 
-        private void WalkForward()
+    private void WalkForward()
     {
-        //if (transform.position.y /* * direction */ <= mapLimit /* * direction*/)
-        if (transform.localPosition.y * direction <= mapLimit * direction)
-        {
-            transform.Translate(new Vector2(0, speed /* * direction */));
-            spriteContainer.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            if (transform.position.x > 0)
-            {   // Go to the left
-                transform.Translate(new Vector2(-speed * direction, 0));
-            }
-            else
-            {   // Go to the right
-                transform.Translate(new Vector2(speed * direction, 0));
-            }
-        }
+
+        WalkTo(enemyCastle);
+        
+        ////if (transform.position.y /* * direction */ <= mapLimit /* * direction*/)
+        //if (transform.localPosition.y * direction <= mapLimit * direction)
+        //{
+        //    transform.Translate(new Vector2(0, speed /* * direction */));
+        //    spriteContainer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //}
+        //else
+        //{
+        //    if (transform.position.x > 0)
+        //    {   // Go to the left
+        //        transform.Translate(new Vector2(-speed * direction, 0));
+        //    }
+        //    else
+        //    {   // Go to the right
+        //        transform.Translate(new Vector2(speed * direction, 0));
+        //    }
+        //}
     }
 
     public override void WalkTo(Transform target)
@@ -99,42 +106,46 @@ public class FightingMobileUnit : MobileUnit
 
     private IEnumerator AttackSystem()
     {
-        while (this.enabled && GameMenu.GAME_STARTED)
+        while (true)
         {
-            GetClosest(enemies);
-
-            while (attack)
+            while (this.enabled && GameMenu.GAME_STARTED)
             {
-                if (closestTarget != null)
-                {
-                    if(GetComponent<Collider2D>().IsTouching(closestTarget.GetComponent<Collider2D>()))
-                    {
-                        int lastStep = StepCounter.currentStep;
+                GetClosest(enemies);
 
-                        //while (lastStep > StepCounter.currentStep - attackReloadTimeInFrames)
-                        //{
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        ////}
-                        MakeDamage();
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
-                        yield return waitFrame;
+                while (attack)
+                {
+                    if (closestTarget != null)
+                    {
+                        if ((Mathf.Round(Vector2.Distance(transform.position, closestTarget.position) * 10) / 10) <= radius + closestTarget.GetComponent<Unit>().radius)
+                        {
+                            int lastStep = StepCounter.currentStep;
+
+                            //while (lastStep > StepCounter.currentStep - attackReloadTimeInFrames)
+                            //{
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            ////}
+                            MakeDamage();
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                            yield return waitFrame;
+                        }
+                        else
+                        {
+                            attack = false;
+                        }
                     }
                     else
                     {
-                        attack = false;
+                        break;
                     }
                 }
-                else
-                {
-                    break;
-                }
+                yield return waitFrame;
             }
             yield return waitFrame;
         }

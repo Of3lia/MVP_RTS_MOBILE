@@ -27,7 +27,7 @@ public class GameInitialization : MonoBehaviour
         p2Units = GetComponent<SharedFields>().p2Units;
 
         GENERAL.goldNumText = goldNumText;
-        GENERAL.GOLD = 5000;
+        GENERAL.GOLD = 150;
 
         if (GENERAL.PLAYER == 1)
         {
@@ -48,7 +48,7 @@ public class GameInitialization : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(StepCounter.currentStep % 50 == 0)
+        if (StepCounter.currentStep % 50 == 0)
         {
             GENERAL.GOLD++;
         }

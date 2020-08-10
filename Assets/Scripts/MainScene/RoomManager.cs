@@ -166,7 +166,7 @@ public class RoomManager : MonoBehaviour
                             // Load GAME SCENE
                             if (p1IsReadyButton.isReadyString == "1" && p2IsReadyButton.isReadyString == "1")
                             {
-                                SceneManager.LoadScene(GENERAL.Scene_GameScene);
+                                SceneManager.LoadSceneAsync(GENERAL.Scene_GameScene);
                             }
                         }
                     }

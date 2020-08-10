@@ -21,6 +21,6 @@ class Knight : FightingMobileUnit
             Debug.LogWarning("No tag assigned");
         }
 
-        radius = 1.0f;
+        radius = 0.7f;
     }
 }

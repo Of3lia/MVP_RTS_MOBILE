@@ -8,6 +8,6 @@ public class RestartScene : MonoBehaviour
     public void RestartSceneButton()
     {
         StepCounter.currentStep = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -25,6 +25,8 @@ static class GENERAL
         set { gold = value; goldNumText.text = value.ToString(); }
     }
     public static Text goldNumText;
+
+    public static string TEST_ROOM = "1";
     
     //public static bool TESTING_MODE = false;
 
@@ -32,4 +34,5 @@ static class GENERAL
     public static int Scene_RegisterLogin = 1;
     public static int Scene_MainMenuScene = 2;
     public static int Scene_GameScene = 3;
+    public static int Scene_TestScene = 4;
 }

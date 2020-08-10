@@ -20,6 +20,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoToTestScene()
     {
-        SceneManager.LoadScene(GENERAL.Scene_GameScene);
+        SceneManager.LoadSceneAsync(GENERAL.Scene_TestScene);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
 using UnityEngine.UI;
 
-public class Unit : SincronizableObject
+public class Unit : MonoBehaviour
 {
     protected SharedComponents sharedComponents;
 
@@ -30,7 +30,7 @@ public class Unit : SincronizableObject
     [SerializeField]
     protected float los = 3; // LINE OF SIGHT
 
-    protected float radius = 0.5f;
+    public float radius = 0.4f;
 
     protected bool nonPlayerUnit;
 
@@ -73,6 +73,7 @@ public class Unit : SincronizableObject
         //transform.position = new Vector2(Mathf.Round(transform.position.x * 100) / 100, Mathf.Round(transform.position.y * 100) / 100);
 
         waitFrame = new WaitForFixedUpdate();
+
     }
 
     protected virtual void Start()
@@ -80,6 +81,8 @@ public class Unit : SincronizableObject
         InitializeUnit();
 
         StartCoroutine(StateMachine());
+
+        transform.position = new Vector2(Mathf.Round(transform.position.x * 10) / 10, Mathf.Round(transform.position.y * 10) / 10);
     }
 
     protected virtual IEnumerator StateMachine() { yield return null;  }
@@ -145,7 +148,7 @@ public class Unit : SincronizableObject
     public void ActivateUnit(float posx, float posy)
     {
         this.enabled = true;
-        currentHealthPoints = maxHealthPoints;
+        InitializeUnit();
         transform.parent = inGameParent;
         transform.position = new Vector2(posx, posy);
         //Debug.Log(inGameParent);

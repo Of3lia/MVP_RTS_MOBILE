@@ -54,36 +54,39 @@ public class Miner : MobileUnit
 
     protected override IEnumerator StateMachine()
     {
-        while (this.enabled && GameMenu.GAME_STARTED)
+        while (true)
         {
-            if (closestTarget != null && castle != null)
+            while (this.enabled && GameMenu.GAME_STARTED)
             {
-                if (!hasGold)
+                if (closestTarget != null && castle != null)
                 {
-                    WalkTo(closestTarget);
-
-                    if (Vector2.Distance(transform.position, closestTarget.position) < 0.5f)
+                    if (!hasGold)
                     {
-                        hasGold = true;
-                        closestTarget.GetComponent<GoldMine>().BeMined(gatheringRate, int.Parse(tag));
-                    }
-                }
-                else
-                {
-                    WalkTo(castle);
+                        WalkTo(closestTarget);
 
-                    if (Vector2.Distance(transform.position,
-                        Physics2D.ClosestPoint(transform.position, castle.GetComponent<Collider2D>())) < 0.5f)
-                    {
-                        hasGold = false;
-                        if (player == GENERAL.PLAYER)
+                        if ((Mathf.Round( Vector2.Distance(transform.position, closestTarget.position) * 10 ) / 10) <= radius)
                         {
-                            GENERAL.GOLD += gatheringRate;
+                            hasGold = true;
+                            closestTarget.GetComponent<GoldMine>().BeMined(gatheringRate, int.Parse(tag));
+                        }
+                    }
+                    else
+                    {
+                        WalkTo(castle);
+
+                        if (Mathf.Round( (Vector2.Distance(transform.position, castle.position) * 10) / 10)  <= radius + castle.GetComponent<Unit>().radius)
+                        {
+                            hasGold = false;
+                            if (player == GENERAL.PLAYER)
+                            {
+                                GENERAL.GOLD += gatheringRate;
+                            }
                         }
                     }
                 }
+                yield return waitFrame;
             }
-            yield return new WaitForFixedUpdate();
+            yield return waitFrame;
         }
     }
 }

@@ -42,7 +42,7 @@ public class PhpWrite : MonoBehaviour
 
     private void Start()
     {
-        waitTime = new WaitForSecondsRealtime(1);
+        waitTime = new WaitForSecondsRealtime(0.5f);
         StartCoroutine(CleanRoom());
         StartCoroutine(WritePhp());
     }
@@ -64,7 +64,18 @@ public class PhpWrite : MonoBehaviour
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                CreateSelectedCard_Click();
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.name == "Terrain")
+                        {
+                            CreateSelectedCard_Click();
+                        }
+                    }
+                }
             }
         }
     }
@@ -74,7 +85,20 @@ public class PhpWrite : MonoBehaviour
         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
         {
             if (!EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
-                CreateSelectedCard_Click();
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.name == "Terrain")
+                        {
+                            CreateSelectedCard_Click();
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -125,7 +149,7 @@ public class PhpWrite : MonoBehaviour
                 form.AddField("room", GENERAL.ROOM);
 
 #if UNITY_EDITOR
-                form.AddField("room", "test_room");
+                form.AddField("room", GENERAL.TEST_ROOM);
 #endif
                 using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
                 {
@@ -156,7 +180,7 @@ public class PhpWrite : MonoBehaviour
         form.AddField("room", GENERAL.ROOM);
 
 #if UNITY_EDITOR
-        form.AddField("room", "test_room");
+        form.AddField("room", GENERAL.TEST_ROOM);
 #endif
         using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, form))
         {

@@ -10,12 +10,15 @@ public class Projectile : MonoBehaviour
     private Transform target;
     private Unit targetUnit;
     private Vector2 targetPos;
+    private float targetRadius;
+    private Vector2 nextStep;
     
     public void InitializeProjectile(Transform target, int attackPoints)
     {
         targetPos = target.position;
         this.attackPoints = attackPoints;
         targetUnit = target.GetComponent<Unit>();
+        targetRadius = target.GetComponent<Unit>().radius;
 
         // Get Angle in Radians
         float AngleRad = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x);
@@ -31,12 +34,13 @@ public class Projectile : MonoBehaviour
 
     public void MoveToTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, projectileSpeed);
+        nextStep = Vector2.MoveTowards(transform.position, targetPos, projectileSpeed);
+        transform.position = new Vector2(Mathf.Round(nextStep.x * 100) / 100, Mathf.Round(nextStep.y * 100) / 100);
     }
 
     private void MachineState()
     {
-        if (Vector2.Distance(transform.position, targetPos) > 0.5f)
+        if (Vector2.Distance(transform.position, targetPos) > targetRadius)
         {
             MoveToTarget();
         }

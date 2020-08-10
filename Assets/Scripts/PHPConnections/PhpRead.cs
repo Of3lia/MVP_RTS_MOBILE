@@ -52,7 +52,7 @@ public class PhpRead : MonoBehaviour
 
     private void Start()
     {
-        waitTime = new WaitForSecondsRealtime(1);
+        waitTime = new WaitForSecondsRealtime(0.5f);
         waitForFixedUpdate = new WaitForFixedUpdate();
 
         PlayerPrefs.SetInt("id", 0);
@@ -73,7 +73,7 @@ public class PhpRead : MonoBehaviour
                 form.AddField("room", GENERAL.ROOM);
 
                 #if UNITY_EDITOR
-                    form.AddField("room", "test_room");
+                    form.AddField("room", GENERAL.TEST_ROOM);
                 #endif
 
                 using (UnityWebRequest webRequest = UnityWebRequest.Post( _uri , form))
@@ -328,6 +328,32 @@ public class PhpRead : MonoBehaviour
                                         }
                                         break;
 
+                                    //case "_SyncDataString:_1":
+
+                                    //    if (strings != "_EndSyncDataString_")
+                                    //    {
+                                    //        strings += downloadedText[i];
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        DesyncHandler.p1SyncData = strings;
+                                    //        strings = "";
+                                    //    }
+                                    //    break;
+
+                                    //case "_SyncDataString:_2":
+
+                                    //    if (strings != "_EndSyncDataString_")
+                                    //    {
+                                    //        strings += downloadedText[i];
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        DesyncHandler.p2SyncData = strings;
+                                    //        strings = "";
+                                    //    }
+                                    //    break;
+
                                     default:
                                         downloadedStrings += downloadedText[i];
                                         break;
@@ -347,15 +373,11 @@ public class PhpRead : MonoBehaviour
         //Debug.Log(step);
         int stepToCheck = actionStep + 60;
 
-        while (true)
+        while (stepToCheck != StepCounter.currentStep)
         {
-            if (stepToCheck == StepCounter.currentStep)
-            {
-                poolManager.ActivateUnitFromPool(player, posx, posy, unit);
-                yield break;
-            }
             yield return waitForFixedUpdate;
         }
+        poolManager.ActivateUnitFromPool(player, posx, posy, unit);
     }
 
     /* private IEnumerator CreateUnit(int actionStep, int player, int posx, int posy, Transform _unitToCreate)
